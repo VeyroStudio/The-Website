@@ -71,3 +71,6 @@ yarn-error.log*
 # ---------------------------------------------------------------
 deploy-build/
 *.zip
+
+# Windows shortcuts
+*.lnk
