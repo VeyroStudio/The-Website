@@ -49,7 +49,7 @@ export default function AboutPage() {
         <div className="shell grid gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-4" data-reveal>
             <div className="md:sticky md:top-32">
-              <Mark title={null} className="w-16 text-navy/12" />
+              <Mark title={null} className="w-28 text-navy/12 md:w-44" />
               <p className="mt-6 max-w-[26ch] text-sm leading-relaxed text-faint">
                 The mark is a V that overshoots — a letter and a direction at
                 the same time.
