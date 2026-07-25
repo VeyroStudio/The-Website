@@ -8,38 +8,44 @@ import { ArrowRight, Check, Spinner } from "./ui";
 /**
  * Enquiry form.
  *
- * Posts to a form endpoint set via NEXT_PUBLIC_FORM_ENDPOINT (Web3Forms,
- * Formspree, or anything accepting a JSON POST). Until that is set the
- * form validates and says so plainly, rather than showing a success
- * state for a message nobody received.
+ * Web3Forms' free tier only accepts submissions from the browser — a
+ * server-to-server post is rejected with 403 — so the message is sent
+ * from here rather than relayed through our own server.
+ *
+ * The access key is fetched from /api/enquiry at submit time, which
+ * reads it from the environment on each request. That makes it settable
+ * in hPanel → Node.js app → Environment Variables as `WEB3FORMS_KEY`,
+ * changeable without rebuilding. If that fetch fails for any reason the
+ * baked-in default is used, so the form still sends.
  *
  * Kept deliberately short: a shop owner filling this in on a phone
  * between customers will abandon a long form. Name, contact, trade,
  * situation — everything else is optional.
  */
 
-/* Web3Forms delivery, with the live values as defaults.
- *
- * These are public by design: NEXT_PUBLIC_* is compiled into the client
- * bundle, so the access key is readable in page source on any deployed
- * build. Committing it therefore changes nothing about who can see it.
- *
- * They are defaults rather than env-only because a build on a machine
- * without .env.local would otherwise ship a form that silently refuses
- * to send — which is exactly what happened on the first deploy. An env
- * var still wins if one is set, so staging can point somewhere else.
- *
- * The key routes to ethan@veyrostudio.co.uk. If it is ever abused,
- * generate a replacement at web3forms.com and change it here.
- *
- * `||` rather than `??` on purpose: an env var set to an empty string
- * must fall through to the default, not blank the form out.
- */
-const ENDPOINT =
-  process.env.NEXT_PUBLIC_FORM_ENDPOINT || "https://api.web3forms.com/submit";
-const ACCESS_KEY =
-  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ||
-  "110ffbb1-cf37-4d82-8234-baab334ae2a8";
+const CONFIG_URL = "/api/enquiry";
+const FALLBACK_ENDPOINT = "https://api.web3forms.com/submit";
+const FALLBACK_KEY = "110ffbb1-cf37-4d82-8234-baab334ae2a8";
+
+type FormConfig = { endpoint: string; accessKey: string };
+
+/** Never let a config hiccup stop an enquiry — fall back and carry on. */
+async function loadConfig(): Promise<FormConfig> {
+  try {
+    const res = await fetch(CONFIG_URL, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const cfg = (await res.json()) as Partial<FormConfig>;
+    return {
+      endpoint: cfg.endpoint || FALLBACK_ENDPOINT,
+      accessKey: cfg.accessKey || FALLBACK_KEY,
+    };
+  } catch {
+    return { endpoint: FALLBACK_ENDPOINT, accessKey: FALLBACK_KEY };
+  }
+}
 
 type Status = "idle" | "submitting" | "success" | "error";
 type Errors = Partial<Record<"name" | "contact" | "business" | "trade", string>>;
@@ -108,18 +114,16 @@ export default function InquiryForm() {
       return;
     }
 
-    if (!ENDPOINT) {
-      setStatus("error");
-      setFailMessage(
-        `This form isn't connected to an inbox yet — set NEXT_PUBLIC_FORM_ENDPOINT before launch. In the meantime, ring ${site.phone} or email ${site.email}.`
-      );
-      return;
-    }
-
     setStatus("submitting");
     setFailMessage("");
 
+    /* Key comes from the server so it can be changed in Hostinger's
+       panel; the post itself must come from the browser, because
+       Web3Forms free rejects server-side submissions. */
+    const { endpoint, accessKey } = await loadConfig();
+
     const payload: Record<string, unknown> = {
+      access_key: accessKey,
       name,
       business,
       contact,
@@ -130,18 +134,12 @@ export default function InquiryForm() {
       message: (data.get("message") as string)?.trim() || "—",
       subject: `New VEYRO enquiry — ${business}`,
       from_name: "VEYRO website",
-      /* Where the enquiry lands. Web3Forms and Formspree both route by
-         the account the key belongs to, so this is belt-and-braces — the
-         key itself must be registered to this address. */
-      to: site.email,
-      /* If the enquirer left an email, hitting Reply goes to them rather
-         than to the form provider. */
+      /* Hitting Reply goes to the enquirer when they left an email. */
       replyto: EMAIL_RE.test(contact) ? contact : site.email,
     };
-    if (ACCESS_KEY) payload.access_key = ACCESS_KEY;
 
     try {
-      const res = await fetch(ENDPOINT, {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
