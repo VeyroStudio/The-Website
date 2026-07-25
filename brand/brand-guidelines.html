@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VEYRO — Brand Guidelines</title>
+<link rel="icon" href="logo/veyro-favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F0; --cream2:#F5EFE3; --cream3:#EBE2D2; --line:#E2D8C6;
+    --navy:#13223A; --navy2:#1D3253; --muted:#4C5F7D; --faint:#566A88;
+    --amber:#D9822B; --amber-hi:#F2A64B; --amber-ink:#8F5210;
+    --danger:#B3261E; --success:#1F6B45;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --sans:"Public Sans",system-ui,sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--cream); color:var(--navy);
+    font-family:var(--sans); font-size:16px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{max-width:74rem;margin:0 auto;padding:0 1.5rem}
+  @media(min-width:768px){.shell{padding:0 3rem}}
+
+  h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:-.028em;margin:0}
+  p{margin:0 0 1rem;color:var(--muted);max-width:66ch}
+  a{color:var(--amber-ink)}
+
+  .eyebrow{
+    font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);display:flex;align-items:center;gap:.6rem;margin:0 0 1.25rem;
+  }
+  .eyebrow::before{content:"";width:.5rem;height:.5rem;border-radius:99px;background:var(--amber)}
+
+  section{padding:4.5rem 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:0}
+
+  .grid{display:grid;gap:1.5rem}
+  .g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  @media(min-width:820px){
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+    .split{display:grid;grid-template-columns:15rem 1fr;gap:3rem}
+  }
+
+  .card{border:1px solid var(--line);background:#fff;border-radius:1rem;padding:1.5rem}
+  .tile{border:1px solid var(--line);border-radius:1rem;padding:2rem;display:flex;align-items:center;justify-content:center;min-height:9rem;background:#fff}
+  .tile.dark{background:var(--navy)}
+  .tile img{max-width:100%;height:auto}
+
+  .swatch{border:1px solid var(--line);border-radius:.75rem;overflow:hidden;background:#fff}
+  .swatch .chip{height:6.5rem}
+  .swatch .meta{padding:.9rem 1rem;font-size:.75rem;line-height:1.8;color:var(--faint)}
+  .swatch .meta strong{display:block;font-size:.9375rem;font-weight:600;color:var(--navy);margin-bottom:.25rem}
+
+  table{width:100%;border-collapse:collapse;font-size:.875rem}
+  th,td{text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  td{color:var(--muted)}
+  code{font-family:ui-monospace,"SF Mono",monospace;font-size:.8125rem;color:var(--navy);background:var(--cream2);padding:.1rem .35rem;border-radius:.25rem}
+
+  .do,.dont{border-left:3px solid;padding-left:1rem;border-radius:.25rem}
+  .do{border-color:var(--success)}
+  .dont{border-color:var(--danger)}
+  .do h4,.dont h4{font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+  .do h4{color:var(--success)}
+  .dont h4{color:var(--danger)}
+  .do ul,.dont ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.9375rem}
+  .do li,.dont li{margin-bottom:.4rem}
+
+  .note{border-left:3px solid var(--amber);background:var(--cream2);padding:1rem 1.25rem;border-radius:.5rem;color:var(--muted);font-size:.875rem;max-width:62ch}
+  .warn{border-left:3px solid var(--danger);background:#fff;padding:1rem 1.25rem;border-radius:.5rem;color:var(--navy);font-size:.9375rem;max-width:62ch;font-weight:500}
+
+  .clearspace{border:1px dashed var(--line);border-radius:1rem;padding:2.5rem;display:flex;align-items:center;justify-content:center;background:#fff}
+  .clearspace .box{outline:1px dashed var(--amber);outline-offset:1.6rem;display:inline-flex}
+
+  .mark-demo{background-image:linear-gradient(var(--amber-hi),var(--amber-hi));background-repeat:no-repeat;background-position:0 72%;background-size:100% .4em;padding-inline:.08em}
+
+  /* ---------------------------------------------------------------
+     Print / PDF. Colour is the substance of this document, so
+     print-color-adjust is forced — without it the swatches and the
+     cream ground drop out and half the guidance becomes unreadable.
+     --------------------------------------------------------------- */
+  @page{ size:A4; margin:14mm; }
+
+  @media print{
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    html,body{ background:var(--cream); font-size:10pt; }
+    .shell{ max-width:none; padding:0; }
+
+    section{ padding:1.4rem 0; border-top:1px solid var(--line); }
+    section:first-of-type{ min-height:0 !important; padding:0 0 1.5rem; break-after:page; }
+
+    /* Each numbered chapter starts on a fresh page */
+    section:nth-of-type(n+2){ break-before:page; }
+
+    h1{ font-size:30pt !important; }
+    h2{ font-size:19pt !important; }
+    h3{ font-size:13pt !important; }
+    h2,h3,h4{ break-after:avoid; }
+    p{ orphans:3; widows:3; }
+
+    table,.card,.swatch,.tile,.do,.dont,.note,.warn,.clearspace{ break-inside:avoid; }
+    thead{ display:table-header-group; }
+    tr{ break-inside:avoid; }
+
+    .swatch .chip{ height:3.5rem; }
+    .tile{ min-height:6rem; padding:1.1rem; }
+    .grid{ gap:.75rem; }
+
+    /* The screen breakpoints never fire at A4 width, so the multi-column
+       layouts are restored explicitly — otherwise every swatch and card
+       stacks and the document doubles in length. */
+    .g2{ grid-template-columns:repeat(2,1fr) !important; }
+    .g3{ grid-template-columns:repeat(3,1fr) !important; }
+    .g4{ grid-template-columns:repeat(4,1fr) !important; }
+    .split{ display:grid !important; grid-template-columns:9rem 1fr !important; gap:1.5rem !important; }
+
+    a{ color:var(--amber-ink); text-decoration:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<section class="shell" style="min-height:78vh;display:flex;flex-direction:column;justify-content:center">
+  <img src="logo/veyro-lockup-on-light.svg" alt="VEYRO" style="width:min(20rem,68%);height:auto">
+  <h1 style="font-size:clamp(2.5rem,7vw,5rem);margin-top:2.5rem">Brand guidelines</h1>
+  <p style="margin-top:1.25rem;font-size:1.125rem;max-width:46ch">
+    How the VEYRO identity is built, and the rules that keep it consistent
+    wherever it turns up.
+  </p>
+  <p class="eyebrow" style="margin-top:2.5rem">Version 2.0 — Internal document</p>
+</section>
+
+<!-- ========================== POSITIONING ========================= -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">01 — The brand</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">What VEYRO is</h2>
+      <p style="margin-top:1.25rem">
+        VEYRO builds websites for local businesses — barbers, salons,
+        takeaways, butchers, cafés — around Wideopen, Gosforth, Killingworth
+        and the wider North East, and remotely for anyone in the UK.
+      </p>
+      <p>
+        The people we sell to have usually been quoted £2,000 by a &ldquo;proper&rdquo;
+        agency and decided websites aren&rsquo;t for people like them. So the
+        single most important job this brand has is to <strong>not look
+        expensive or intimidating</strong>. Warm, plain, competent, local. It
+        should feel like a good tradesperson, not a design consultancy.
+      </p>
+
+      <div class="grid g3" style="margin-top:2rem">
+        <div class="card">
+          <h3 style="font-size:1.2rem">Warm</h3>
+          <p style="font-size:.9375rem;margin:.5rem 0 0">
+            Cream, not white. Rounded, not sharp. Approachable before it is
+            impressive.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1.2rem">Plain</h3>
+          <p style="font-size:.9375rem;margin:.5rem 0 0">
+            Prices on the page. No jargon. Nothing that needs decoding.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1.2rem">Local</h3>
+          <p style="font-size:.9375rem;margin:.5rem 0 0">
+            Town names, a real phone number, a real person. Proximity is the
+            advantage — say it everywhere.
+          </p>
+        </div>
+      </div>
+
+      <div class="warn" style="margin-top:2rem">
+        The failure mode for this brand is looking too good. If a design
+        decision makes VEYRO feel like a London agency, it is the wrong
+        decision — however nice it looks.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= LOGO ============================= -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">02 — Logo</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">The mark</h2>
+      <p style="margin-top:1.25rem">
+        An asymmetric V. The right arm overshoots the point where a V would
+        normally stop and keeps climbing, so it reads as a letterform and an
+        upward direction at once. The final segment of that arm carries the
+        amber — the only place the accent appears in the identity by default.
+      </p>
+      <p>
+        Both the mark and the wordmark are drawn as vector paths, not set in a
+        typeface. Nothing to license, nothing to re-outline, identical at
+        every size on every device.
+      </p>
+
+      <div class="grid g2" style="margin-top:2rem">
+        <div class="tile"><img src="logo/veyro-lockup-on-light.svg" alt="VEYRO lockup on cream" style="width:80%"></div>
+        <div class="tile dark"><img src="logo/veyro-lockup-on-dark.svg" alt="VEYRO lockup on navy" style="width:80%"></div>
+      </div>
+      <p class="eyebrow" style="margin-top:.9rem">Primary horizontal lockup — the default</p>
+
+      <h3 style="font-size:1.4rem;margin-top:3rem">Variants</h3>
+      <div class="grid g4" style="margin-top:1.25rem">
+        <div>
+          <div class="tile"><img src="logo/veyro-stacked-on-light.svg" alt="Stacked lockup" style="width:76%"></div>
+          <p class="eyebrow" style="margin-top:.6rem">Stacked</p>
+        </div>
+        <div>
+          <div class="tile"><img src="logo/veyro-mark-on-light.svg" alt="Mark only" style="width:44%"></div>
+          <p class="eyebrow" style="margin-top:.6rem">Mark only</p>
+        </div>
+        <div>
+          <div class="tile"><img src="logo/veyro-wordmark-on-light.svg" alt="Wordmark only" style="width:88%"></div>
+          <p class="eyebrow" style="margin-top:.6rem">Wordmark</p>
+        </div>
+        <div>
+          <div class="tile"><img src="logo/veyro-lockup-mono-black.svg" alt="One colour lockup" style="width:80%"></div>
+          <p class="eyebrow" style="margin-top:.6rem">One colour</p>
+        </div>
+      </div>
+
+      <table style="margin-top:2rem">
+        <thead><tr><th>Variant</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><code>lockup</code></td><td>Website header, van livery, invoices, email signature, business cards. The default.</td></tr>
+          <tr><td><code>stacked</code></td><td>Square and portrait formats — social profiles, flyers, shop stickers, A-boards.</td></tr>
+          <tr><td><code>mark</code></td><td>Where VEYRO is already named nearby: favicons, avatars, watermarks.</td></tr>
+          <tr><td><code>wordmark</code></td><td>Rare — only when the mark appears separately on the same layout.</td></tr>
+          <tr><td><code>mono</code></td><td>One-colour reproduction: embroidery on a polo shirt, engraving, foil, single-colour print.</td></tr>
+          <tr><td><code>app-icon</code> / <code>avatar</code></td><td>Platforms supplying their own container — Facebook, Instagram, app stores.</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem;font-size:.875rem">
+        <strong style="color:var(--navy)">Naming note:</strong>
+        <code>on-light</code> files are navy and go on cream or white;
+        <code>on-dark</code> files are cream and go on navy.
+      </p>
+
+      <h3 style="font-size:1.4rem;margin-top:3rem">Clear space &amp; minimum size</h3>
+      <p style="margin-top:.75rem">
+        Keep clear space on all four sides equal to the <strong>full height of
+        the mark</strong>. Nothing enters it — no text, no rules, no image
+        edges, no other logos.
+      </p>
+      <div class="clearspace" style="margin-top:1.25rem">
+        <span class="box"><img src="logo/veyro-lockup-on-light.svg" alt="Clear space demonstration" style="width:13rem"></span>
+      </div>
+      <table style="margin-top:1.75rem">
+        <thead><tr><th>Context</th><th>Minimum width</th></tr></thead>
+        <tbody>
+          <tr><td>Lockup, screen</td><td><code>120px</code></td></tr>
+          <tr><td>Lockup, print</td><td><code>32mm</code></td></tr>
+          <tr><td>Mark, screen</td><td><code>24px</code> — below this use the solid app-icon</td></tr>
+          <tr><td>Mark, print</td><td><code>8mm</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size:1.4rem;margin-top:3rem">Misuse</h3>
+      <div class="grid g2" style="margin-top:1.25rem">
+        <div class="do">
+          <h4>Do</h4>
+          <ul>
+            <li>Use the supplied SVGs, unmodified</li>
+            <li>Place on flat cream, white or navy</li>
+            <li>Switch to <code>mono</code> when only one colour is available</li>
+            <li>Scale proportionally, from the corner</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h4>Don't</h4>
+          <ul>
+            <li>Recolour the mark or move the amber accent</li>
+            <li>Rotate, skew, stretch, outline or add effects</li>
+            <li>Add a drop shadow, glow, gradient or container of your own</li>
+            <li>Re-set the wordmark in a font or change its letterspacing</li>
+            <li>Place it over a busy photo without a plain panel behind it</li>
+            <li>Rebuild it by hand — always use the source files</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ COLOUR ============================ -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">03 — Colour</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">Palette</h2>
+      <p style="margin-top:1.25rem">
+        Warm cream, deep navy, one amber accent. Cream instead of white is the
+        single most important choice here — it is what stops the brand feeling
+        clinical and expensive.
+      </p>
+
+      <div class="grid g3" style="margin-top:2rem">
+        <div class="swatch">
+          <div class="chip" style="background:#FBF7F0;border-bottom:1px solid var(--line)"></div>
+          <div class="meta"><strong>Cream</strong>#FBF7F0<br>rgb(251, 247, 240)<br>C0 M2 Y4 K2</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#13223A"></div>
+          <div class="meta"><strong>Navy</strong>#13223A<br>rgb(19, 34, 58)<br>C67 M41 Y0 K77</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#D9822B"></div>
+          <div class="meta"><strong>Amber</strong>#D9822B<br>rgb(217, 130, 43)<br>C0 M40 Y80 K15</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.25rem;margin-top:2.5rem">Supporting tones</h3>
+      <div class="grid g4" style="margin-top:1.25rem">
+        <div class="swatch"><div class="chip" style="background:#F5EFE3;height:4.5rem;border-bottom:1px solid var(--line)"></div><div class="meta"><strong>Cream 2</strong>#F5EFE3</div></div>
+        <div class="swatch"><div class="chip" style="background:#EBE2D2;height:4.5rem"></div><div class="meta"><strong>Cream 3</strong>#EBE2D2</div></div>
+        <div class="swatch"><div class="chip" style="background:#E2D8C6;height:4.5rem"></div><div class="meta"><strong>Line</strong>#E2D8C6</div></div>
+        <div class="swatch"><div class="chip" style="background:#1D3253;height:4.5rem"></div><div class="meta"><strong>Navy 2</strong>#1D3253</div></div>
+        <div class="swatch"><div class="chip" style="background:#4C5F7D;height:4.5rem"></div><div class="meta"><strong>Muted</strong>#4C5F7D</div></div>
+        <div class="swatch"><div class="chip" style="background:#566A88;height:4.5rem"></div><div class="meta"><strong>Faint</strong>#566A88</div></div>
+        <div class="swatch"><div class="chip" style="background:#8F5210;height:4.5rem"></div><div class="meta"><strong>Amber ink</strong>#8F5210</div></div>
+        <div class="swatch"><div class="chip" style="background:#F2A64B;height:4.5rem"></div><div class="meta"><strong>Amber hi</strong>#F2A64B</div></div>
+      </div>
+
+      <h3 style="font-size:1.25rem;margin-top:2.5rem">The one rule that matters</h3>
+      <div class="warn" style="margin-top:1rem">
+        <strong>Amber is a background colour, not a text colour.</strong>
+        At 2.74:1 on cream it fails accessibility for text. For amber-looking
+        text and links use <code>Amber ink</code> (#8F5210), which passes at
+        5.81:1. Text sitting <em>on</em> an amber button is always
+        <code>Navy</code> — cream on amber fails at 2.74:1.
+      </div>
+
+      <h3 style="font-size:1.25rem;margin-top:2rem">Contrast, measured</h3>
+      <table style="margin-top:1rem">
+        <thead><tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td><code>Navy</code></td><td><code>Cream</code></td><td>14.92 : 1</td><td>AAA — body and headings</td></tr>
+          <tr><td><code>Muted</code></td><td><code>Cream</code></td><td>6.07 : 1</td><td>AA — secondary copy</td></tr>
+          <tr><td><code>Faint</code></td><td><code>Cream</code></td><td>5.16 : 1</td><td>AA — labels, captions</td></tr>
+          <tr><td><code>Faint</code></td><td><code>Cream 2</code></td><td>4.81 : 1</td><td>AA, but close — do not lighten Faint</td></tr>
+          <tr><td><code>Amber ink</code></td><td><code>Cream</code></td><td>5.81 : 1</td><td>AA — links and accent text</td></tr>
+          <tr><td><code>Navy</code></td><td><code>Amber</code></td><td>5.45 : 1</td><td>AA — the primary button</td></tr>
+          <tr><td><code>Cream</code></td><td><code>Navy</code></td><td>14.92 : 1</td><td>AAA — the footer</td></tr>
+          <tr><td><code>Amber</code></td><td><code>Cream</code></td><td>2.74 : 1</td><td><strong style="color:var(--danger)">FAILS</strong> — backgrounds and large shapes only</td></tr>
+          <tr><td><code>Cream</code></td><td><code>Amber</code></td><td>2.74 : 1</td><td><strong style="color:var(--danger)">FAILS</strong> — never white text on amber</td></tr>
+          <tr><td><code>Line</code></td><td><code>Cream</code></td><td>1.32 : 1</td><td>Borders only — never text</td></tr>
+        </tbody>
+      </table>
+
+      <p class="note" style="margin-top:1.5rem">
+        CMYK values are a conversion starting point, not a print spec. Confirm
+        with your printer and ask for a proof — amber shifts noticeably on
+        uncoated stock. For rich black in print use C60 M40 Y40 K100 rather
+        than the navy screen value.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== TYPOGRAPHY ========================== -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">04 — Typography</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">Two families</h2>
+      <p style="margin-top:1.25rem">
+        A characterful grotesque for headings and a quiet, highly legible sans
+        for everything else. Both are open source and free for commercial use,
+        with no licence to track.
+      </p>
+
+      <div style="margin-top:2rem;border-top:1px solid var(--line);padding-top:1.5rem">
+        <p class="eyebrow">Display — Bricolage Grotesque</p>
+        <div style="font-family:var(--display);font-weight:600;font-size:clamp(2rem,6vw,4rem);line-height:1.02;letter-spacing:-.028em;color:var(--navy)">
+          Are you <span class="mark-demo">there</span>?
+        </div>
+        <p style="margin-top:1rem;font-size:.9375rem">
+          Headings only, weight 600. Tracking −0.028em, leading 1.02. It has
+          personality without being a novelty face — which is exactly the
+          register this brand needs. Never below 18px, never for body copy.
+        </p>
+      </div>
+
+      <div style="margin-top:2rem;border-top:1px solid var(--line);padding-top:1.5rem">
+        <p class="eyebrow">Body &amp; UI — Public Sans</p>
+        <p style="font-size:1.25rem;color:var(--navy);max-width:none">
+          The quick brown fox jumps over the lazy dog. 0123456789 £99
+        </p>
+        <p style="margin-top:.75rem;font-size:.9375rem">
+          All body copy, buttons, navigation, labels and form fields. Weights
+          400, 500 and 600. Body leading 1.65, measure capped at 66 characters.
+          <strong style="color:var(--navy)">Minimum 16px on mobile</strong> —
+          below that iOS zooms the viewport whenever a field is focused.
+        </p>
+        <p style="margin-top:.5rem;font-size:.9375rem">
+          Public Sans was drawn for US government services, which is the
+          highest compliment available here: it is designed to be read by
+          everyone, on anything, without being noticed.
+        </p>
+      </div>
+
+      <h3 style="font-size:1.25rem;margin-top:2.5rem">Scale</h3>
+      <table style="margin-top:1rem">
+        <thead><tr><th>Role</th><th>Family</th><th>Size</th><th>Leading</th></tr></thead>
+        <tbody>
+          <tr><td>Hero</td><td>Display</td><td><code>clamp(2.5rem, 8vw, 6rem)</code></td><td>1.02</td></tr>
+          <tr><td>Section heading</td><td>Display</td><td><code>clamp(2rem, 5.2vw, 3.75rem)</code></td><td>1.02</td></tr>
+          <tr><td>Sub heading</td><td>Display</td><td><code>clamp(1.55rem, 3.2vw, 2.4rem)</code></td><td>1.1</td></tr>
+          <tr><td>Lede</td><td>Sans</td><td><code>17–19px</code></td><td>1.7</td></tr>
+          <tr><td>Body</td><td>Sans</td><td><code>16px</code></td><td>1.65</td></tr>
+          <tr><td>Small</td><td>Sans</td><td><code>14px</code></td><td>1.6</td></tr>
+          <tr><td>Eyebrow</td><td>Sans 600</td><td><code>12px</code>, tracking 0.14em, uppercase</td><td>1.4</td></tr>
+        </tbody>
+      </table>
+
+      <p class="note" style="margin-top:1.5rem">
+        The amber marker sweep behind a key word is a signature device. Use it
+        <strong>once per page</strong>, on the single word the whole headline
+        turns on. Two of them and it stops meaning anything.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MOTION ============================ -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">05 — Motion</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">How things move</h2>
+      <p style="margin-top:1.25rem">
+        Motion here is quiet and single-axis. Things arrive from below and
+        settle. Nothing bounces, nothing spins except a loading indicator, and
+        nothing moves that the reader did not cause.
+      </p>
+
+      <table style="margin-top:1.5rem">
+        <thead><tr><th>Device</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>Section reveal</td><td>850ms, opacity 0→1 with a 24px rise, as it enters view</td></tr>
+          <tr><td>Headline reveal</td><td>1050ms per line, masked, sliding up with an 85ms stagger</td></tr>
+          <tr><td>Marker sweep</td><td>Amber grows left-to-right behind the key word, 1.1s, delayed 350ms so the line lands first</td></tr>
+          <tr><td>Search demo</td><td>Types the query, drops in three competitors, then reveals &ldquo;you&rdquo; below. Plays once.</td></tr>
+          <tr><td>List stagger</td><td>Tick items in 60ms increments, eight steps maximum</td></tr>
+          <tr><td>Card lift</td><td>4px rise, soft shadow, amber border on hover</td></tr>
+          <tr><td>Scroll progress</td><td>Amber bar across the top, native CSS scroll timeline</td></tr>
+          <tr><td>Sticky mobile bar</td><td>Slides up past 600px scroll — Call and Get a quote</td></tr>
+          <tr><td>Easing</td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code> for entrances — fast out, long settle</td></tr>
+          <tr><td>Animated properties</td><td><code>transform</code> and <code>opacity</code> only — never width, height, top or left</td></tr>
+        </tbody>
+      </table>
+
+      <div class="grid g2" style="margin-top:1.75rem">
+        <div class="do">
+          <h4>Do</h4>
+          <ul>
+            <li>Animate one or two things per screen</li>
+            <li>Reveal each element once, then leave it alone</li>
+            <li>Honour <code>prefers-reduced-motion</code> everywhere</li>
+            <li>Follow the reading order — top to bottom</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h4>Don't</h4>
+          <ul>
+            <li>Hijack the scroll or fight the reader's input</li>
+            <li>Loop anything decorative</li>
+            <li>Shift layout on hover</li>
+            <li>Put content behind an animation someone has to wait out</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="note" style="margin-top:1.75rem">
+        Motion sensitivity is a genuine accessibility need, not a preference to
+        design around. Under <code>prefers-reduced-motion: reduce</code> every
+        animation resolves instantly to its finished state — nothing is hidden
+        and nothing is lost.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= VOICE ============================ -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">06 — Voice</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">How VEYRO writes</h2>
+      <p style="margin-top:1.25rem">
+        Like a capable person explaining something over a counter. Short
+        sentences, concrete claims, British spelling, first person singular —
+        it is one person, and pretending otherwise is the fastest way to lose
+        the trust the whole business rests on.
+      </p>
+
+      <div class="grid g2" style="margin-top:1.75rem">
+        <div class="do">
+          <h4>Sounds like VEYRO</h4>
+          <ul>
+            <li>&ldquo;Your customers are Googling you. Are you there?&rdquo;</li>
+            <li>&ldquo;It's about the price of two haircuts a month.&rdquo;</li>
+            <li>&ldquo;You do nothing. I build it, I run it, you carry on cutting hair.&rdquo;</li>
+            <li>&ldquo;You'll always be told the number before you agree to anything.&rdquo;</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h4>Doesn't</h4>
+          <ul>
+            <li>&ldquo;We leverage bespoke digital solutions.&rdquo;</li>
+            <li>&ldquo;Our team of experts…&rdquo; (there is no team)</li>
+            <li>&ldquo;Award-winning, industry-leading, world-class.&rdquo;</li>
+            <li>&ldquo;Take your brand to the next level! 🚀&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+
+      <table style="margin-top:1.75rem">
+        <thead><tr><th>Convention</th><th>Standard</th></tr></thead>
+        <tbody>
+          <tr><td>Person</td><td>First person singular — I, me, my. Never &ldquo;we&rdquo;.</td></tr>
+          <tr><td>Spelling</td><td>British — organise, colour, enquiry, licence (noun)</td></tr>
+          <tr><td>Studio name</td><td><code>VEYRO</code> in full capitals, always</td></tr>
+          <tr><td>Prices</td><td>Always shown. £99, £199, £299 — no &ldquo;from&rdquo;, no &ldquo;POA&rdquo;</td></tr>
+          <tr><td>Dashes</td><td>Em dash with spaces — like this</td></tr>
+          <tr><td>Emoji</td><td>Never on the website. Fine in a Facebook DM.</td></tr>
+          <tr><td>Exclamation marks</td><td>Effectively never</td></tr>
+          <tr><td>Claims</td><td>Only what can be honoured. No client counts, no invented testimonials, until they are real.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== A11Y ============================== -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">07 — Accessibility</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">Non-negotiable</h2>
+      <p style="margin-top:1.25rem">
+        A lot of the people buying from VEYRO are not confident with
+        technology, and a fair number will be reading on an old phone with the
+        text size turned up. This matters more here than it does for most
+        brands.
+      </p>
+      <table style="margin-top:1.75rem">
+        <thead><tr><th>Requirement</th><th>Standard</th></tr></thead>
+        <tbody>
+          <tr><td>Text contrast</td><td>4.5:1 minimum for body, 3:1 for large text</td></tr>
+          <tr><td>Touch targets</td><td>44×44px minimum for anything tappable</td></tr>
+          <tr><td>Body text on mobile</td><td>16px minimum, no exceptions</td></tr>
+          <tr><td>Focus states</td><td>Visible 2px amber-ink ring, 3px offset, on every interactive element</td></tr>
+          <tr><td>Icons</td><td>SVG only. Icon-only buttons carry an <code>aria-label</code>.</td></tr>
+          <tr><td>Colour</td><td>Never the only way information is conveyed</td></tr>
+          <tr><td>Animation</td><td>Anything that conveys meaning also has a text equivalent</td></tr>
+          <tr><td>Reduced motion</td><td>Fully honoured — see section 05</td></tr>
+          <tr><td>Target</td><td>WCAG 2.2 AA across all pages</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== ASSETS ============================= -->
+<section class="shell">
+  <div class="split">
+    <div><p class="eyebrow">08 — Assets</p></div>
+    <div>
+      <h2 style="font-size:clamp(1.85rem,4vw,3rem)">What's in the folder</h2>
+      <p style="margin-top:1.25rem">
+        All logo files are SVG — infinitely scalable, a few hundred bytes each,
+        editable in any vector tool. Regenerate them all at any time with
+        <code>node generate-logos.mjs</code>.
+      </p>
+      <table style="margin-top:1.75rem">
+        <thead><tr><th>File</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>veyro-lockup-on-light.svg</code></td><td>Primary — navy, for cream or white</td></tr>
+          <tr><td><code>veyro-lockup-on-dark.svg</code></td><td>Primary — cream, for navy</td></tr>
+          <tr><td><code>veyro-stacked-on-light.svg</code></td><td>Square and portrait formats, light</td></tr>
+          <tr><td><code>veyro-stacked-on-dark.svg</code></td><td>Square and portrait formats, dark</td></tr>
+          <tr><td><code>veyro-mark-on-light.svg</code></td><td>Symbol alone, light</td></tr>
+          <tr><td><code>veyro-mark-on-dark.svg</code></td><td>Symbol alone, dark</td></tr>
+          <tr><td><code>veyro-wordmark-on-light.svg</code></td><td>Wordmark alone, light</td></tr>
+          <tr><td><code>veyro-wordmark-on-dark.svg</code></td><td>Wordmark alone, dark</td></tr>
+          <tr><td><code>veyro-lockup-mono-black.svg</code></td><td>One colour, dark on light</td></tr>
+          <tr><td><code>veyro-lockup-mono-white.svg</code></td><td>One colour, light on dark</td></tr>
+          <tr><td><code>veyro-mark-mono-black.svg</code></td><td>One colour symbol, dark</td></tr>
+          <tr><td><code>veyro-mark-mono-white.svg</code></td><td>One colour symbol, light</td></tr>
+          <tr><td><code>veyro-app-icon.svg</code></td><td>App stores, home screens (20% corner radius)</td></tr>
+          <tr><td><code>veyro-favicon.svg</code></td><td>Browser tab (12% corner radius)</td></tr>
+          <tr><td><code>veyro-avatar-round.svg</code></td><td>Facebook and Instagram profiles (circular)</td></tr>
+        </tbody>
+      </table>
+
+      <p class="note" style="margin-top:1.75rem">
+        Need a PNG or PDF — for a printer, a sign-writer, or Facebook? Open any
+        SVG in Figma, Illustrator or Inkscape and export at the size you need.
+        Because these are vectors there is no such thing as exporting them too
+        large.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="shell" style="padding:3.5rem 0 5rem;border-top:1px solid var(--line);color:var(--faint);font-size:.8125rem">
+  <img src="logo/veyro-mark-on-light.svg" alt="" style="width:2.25rem;height:auto;opacity:.35">
+  <p style="margin-top:1.25rem;font-size:.8125rem">
+    VEYRO Brand Guidelines, version 2.0 — internal reference.<br>
+    The colour, type and motion values here match the website design tokens in
+    <code>app/globals.css</code> exactly. If you change one, change both.
+  </p>
+</footer>
+
+</body>
+</html>

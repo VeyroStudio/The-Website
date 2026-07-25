@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 311 100" fill="none" role="img" aria-label="VEYRO">
+  <title>VEYRO</title>
+  <g transform="translate(0 17.7) scale(0.7)">
+    <path d="M10 22 L44 76 L90 10" stroke="#FBF7F0" stroke-width="11" stroke-linecap="butt" stroke-linejoin="miter"/>
+    <path d="M74.8 31.8 L90 10" stroke="#D9822B" stroke-width="11" stroke-linecap="butt"/>
+  </g>
+  <g transform="translate(88.5 19) scale(0.62)">
+    <g stroke="#FBF7F0" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter">
+      <path d="M10 18 L36 82 L62 18"/>
+      <path d="M128 18 L84 18 L84 82 L128 82"/>
+      <path d="M84 50 L120 50"/>
+      <path d="M150 18 L176 48 L202 18"/>
+      <path d="M176 48 L176 82"/>
+      <path d="M224 82 L224 18 L252 18 A16 16 0 0 1 252 50 L224 50"/>
+      <path d="M248 50 L272 82"/>
+      <ellipse cx="320" cy="50" rx="28" ry="32"/>
+    </g>
+  </g>
+</svg>

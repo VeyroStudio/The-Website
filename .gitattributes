@@ -1,0 +1,24 @@
+# Normalise line endings so the repo is identical whether it is checked
+# out on Windows, macOS or a Linux build server. Without this, files
+# committed from Windows arrive with CRLF and can break tooling in CI.
+* text=auto eol=lf
+
+# Binary — never touch these
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+
+# SVGs are text and should diff as text
+*.svg text eol=lf
+
+# Lockfile churns constantly and is never worth reviewing by hand
+package-lock.json -diff linguist-generated
