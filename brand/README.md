@@ -7,6 +7,8 @@ Everything here is for you, not for the website. None of it is published.
 | `VEYRO-Brand-Guidelines.pdf` | **The guidelines as a 13-page A4 PDF.** Send this to printers, sign-writers or anyone doing work in the brand. |
 | `brand-guidelines.html` | The same document as a web page. This is the source — edit here, then regenerate the PDF. |
 | `logo/` | 15 logo SVGs — lockup, stacked, mark, wordmark, one-colour, app icon, favicon, round avatar, each on light and dark. |
+| `logo-png/` | 35 PNG exports of the same logos, for anything that will not take an SVG. Transparent backgrounds. |
+| `generate-png.mjs` | Regenerates `logo-png/` from the SVGs. Run `node generate-png.mjs`. |
 | `generate-logos.mjs` | Regenerates every SVG in `logo/` from one shared geometry definition. |
 
 ## Regenerating the logos
