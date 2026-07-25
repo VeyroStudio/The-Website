@@ -16,6 +16,7 @@ const eslintConfig = defineConfig([
     // chunks, none of it ours to lint.
     "deploy-build/**",
     "veyro-deploy/**",
+    "veyro-next-only/**",
   ]),
 ]);
 
