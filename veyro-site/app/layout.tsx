@@ -55,6 +55,19 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: true, follow: true },
+  /* Pointed at /public rather than the app/icon.svg convention on
+     purpose. Next fingerprints app icons, serving them at a hashed URL
+     that changes on every build — Google treats a favicon that moves as
+     no favicon at all, which is why none appeared in search results.
+     These paths never change. */
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: ["/favicon.ico"],
+  },
 };
 
 export const viewport: Viewport = {
@@ -82,6 +95,17 @@ const schema = {
   },
   areaServed: areas.map((a) => ({ "@type": "Place", name: a })),
   priceRange: "££",
+  /* `logo` is the property Google actually reads for the logo shown
+     beside search results and in the knowledge panel. Without it there
+     is nothing for it to display, however good the favicon is. Must be
+     an absolute URL and must stay crawlable. */
+  logo: {
+    "@type": "ImageObject",
+    url: `${site.url}/logo.png`,
+    width: 1000,
+    height: 322,
+  },
+  image: `${site.url}/og-logo.png`,
   knowsAbout: [
     "Website design",
     "Small business websites",
