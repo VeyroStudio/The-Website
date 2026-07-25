@@ -52,17 +52,39 @@ await cp(join(ROOT, "public"), join(OUT, "public"), { recursive: true });
 const top = (await readdir(OUT)).sort();
 console.log(`Assembled deploy-build/ containing: ${top.join(", ")}`);
 
-/* Zip it. PowerShell is always present on Windows; skip quietly if the
-   command is unavailable rather than failing the whole script. */
-try {
-  await run("powershell", [
-    "-NoProfile",
-    "-Command",
-    `Compress-Archive -Path '${OUT}\\*' -DestinationPath '${ZIP}' -Force`,
-  ]);
-  const { size } = await stat(ZIP);
-  console.log(`Wrote veyro-deploy.zip (${(size / 1024 / 1024).toFixed(1)} MB)`);
-} catch {
+/* Zip it.
+ *
+ * NOT with PowerShell's Compress-Archive: it writes Windows backslashes
+ * as the path separator inside the archive, which the ZIP spec forbids.
+ * Windows opens those happily, so the file looks fine locally — then
+ * Hostinger's Linux file manager refuses to extract it. That cost an
+ * afternoon once; don't reintroduce it.
+ *
+ * bsdtar ships with Windows 10+ as System32\tar.exe and writes correct
+ * forward-slash paths. Falls back to `zip` on Linux/macOS.
+ */
+const zippers = [
+  { cmd: "C:\\Windows\\System32\\tar.exe", args: ["-a", "-c", "-f", ZIP, "-C", OUT, "."] },
+  { cmd: "tar", args: ["-a", "-c", "-f", ZIP, "-C", OUT, "."] },
+  { cmd: "zip", args: ["-qr", ZIP, "."], opts: { cwd: OUT } },
+];
+
+let zipped = false;
+for (const { cmd, args, opts } of zippers) {
+  try {
+    await run(cmd, args, opts);
+    const { size } = await stat(ZIP);
+    zipped = true;
+    console.log(
+      `Wrote veyro-deploy.zip (${(size / 1024 / 1024).toFixed(1)} MB) using ${cmd}`
+    );
+    break;
+  } catch {
+    /* try the next one */
+  }
+}
+
+if (!zipped) {
   console.log("Could not zip automatically — upload deploy-build/ as-is.");
 }
 
