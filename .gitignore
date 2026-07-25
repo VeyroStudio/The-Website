@@ -50,9 +50,10 @@ Thumbs.db
 desktop.ini
 
 # ---------------------------------------------------------------
-# Logs
+# Logs — including the PM2 output written on the VPS
 # ---------------------------------------------------------------
 *.log
+logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
