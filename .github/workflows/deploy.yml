@@ -1,0 +1,87 @@
+name: Deploy to Hostinger
+
+# Push to main and the site updates. The build happens here on GitHub's
+# runner, not on Hostinger — which is the point, because the server has
+# no source code and no way to build anything.
+#
+# Setup (once): add three repository secrets under
+#   Settings → Secrets and variables → Actions → New repository secret
+#
+#   FTP_SERVER    the FTP hostname from hPanel → Files → FTP Accounts
+#                 (looks like ftp.veyrostudio.co.uk or an IP)
+#   FTP_USERNAME  the FTP username from that same page
+#   FTP_PASSWORD  that account's password
+#
+# Never paste those anywhere but the Secrets page. GitHub encrypts them
+# and they are not readable afterwards, including by workflow logs.
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-run a deploy from the Actions tab without a new commit
+  workflow_dispatch:
+
+concurrency:
+  # If two pushes land close together, finish the newer one and abandon
+  # the older — half-uploaded builds are how sites end up broken.
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: veyro-site/package-lock.json
+
+      - name: Install dependencies
+        working-directory: veyro-site
+        # `ci` not `install` — installs exactly the lockfile, so a deploy
+        # can never quietly pull a different version of something.
+        run: npm ci
+
+      - name: Lint
+        working-directory: veyro-site
+        run: npx eslint .
+
+      - name: Build and package
+        working-directory: veyro-site
+        run: npm run deploy
+
+      - name: Confirm the enquiry form is wired up
+        working-directory: veyro-site
+        # Cheap insurance against shipping the silent-failure form again.
+        run: |
+          if grep -rq "api.web3forms.com" deploy-build/.next/static; then
+            echo "Form endpoint present in the client bundle."
+          else
+            echo "::error::Built bundle has no form endpoint — refusing to deploy a form that cannot send."
+            exit 1
+          fi
+
+      - name: Upload to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Contents of the packaged build...
+          local-dir: ./veyro-site/deploy-build/
+          # ...into the Node app folder. Adjust if yours differs.
+          server-dir: /nodejs/
+          # Keeps a manifest server-side so later runs upload only what
+          # changed, instead of pushing 6 MB every time.
+          state-name: .ftp-deploy-sync-state.json
+          dangerous-clean-slate: false
+
+      - name: Done
+        run: |
+          echo "Uploaded. Restart the Node app in hPanel to pick up the new build."
