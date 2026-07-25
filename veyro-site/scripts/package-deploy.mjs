@@ -49,24 +49,32 @@ await cp(join(ROOT, ".next", "static"), join(OUT, ".next", "static"), {
 /* 3. /public — photographs, icons, robots.txt */
 await cp(join(ROOT, "public"), join(OUT, "public"), { recursive: true });
 
-const top = (await readdir(OUT)).sort();
-console.log(`Assembled deploy-build/ containing: ${top.join(", ")}`);
+console.log(`Assembled deploy-build/ containing: ${(await readdir(OUT)).sort().join(", ")}`);
 
-/* Zip it.
+/* Zip it. Two traps here, both of which produce an archive that looks
+ * fine until someone tries to use it:
  *
- * NOT with PowerShell's Compress-Archive: it writes Windows backslashes
- * as the path separator inside the archive, which the ZIP spec forbids.
- * Windows opens those happily, so the file looks fine locally — then
- * Hostinger's Linux file manager refuses to extract it. That cost an
- * afternoon once; don't reintroduce it.
+ * 1. NOT PowerShell's Compress-Archive. It writes Windows backslashes as
+ *    the path separator inside the archive, which the ZIP spec forbids.
+ *    Windows opens those happily; Hostinger's Linux file manager refuses
+ *    to extract them.
+ *
+ * 2. Archive the entries BY NAME, never as ".". Passing "." makes bsdtar
+ *    prefix every path with "./", and Windows Explorer then shows the
+ *    archive as completely empty — no error, just nothing.
  *
  * bsdtar ships with Windows 10+ as System32\tar.exe and writes correct
- * forward-slash paths. Falls back to `zip` on Linux/macOS.
+ * forward-slash paths. Falls back to `zip` on Linux and macOS.
  */
+const entries = (await readdir(OUT)).sort();
+
 const zippers = [
-  { cmd: "C:\\Windows\\System32\\tar.exe", args: ["-a", "-c", "-f", ZIP, "-C", OUT, "."] },
-  { cmd: "tar", args: ["-a", "-c", "-f", ZIP, "-C", OUT, "."] },
-  { cmd: "zip", args: ["-qr", ZIP, "."], opts: { cwd: OUT } },
+  {
+    cmd: "C:\\Windows\\System32\\tar.exe",
+    args: ["-a", "-c", "-f", ZIP, "-C", OUT, ...entries],
+  },
+  { cmd: "tar", args: ["-a", "-c", "-f", ZIP, "-C", OUT, ...entries] },
+  { cmd: "zip", args: ["-qr", ZIP, ...entries], opts: { cwd: OUT } },
 ];
 
 let zipped = false;
