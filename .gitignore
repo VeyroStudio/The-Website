@@ -65,3 +65,9 @@ yarn-error.log*
 .vercel
 *.tsbuildinfo
 .turbo/
+
+# ---------------------------------------------------------------
+# Deployment bundles produced by `npm run package`
+# ---------------------------------------------------------------
+deploy-build/
+*.zip

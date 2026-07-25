@@ -18,8 +18,28 @@ import { ArrowRight, Check, Spinner } from "./ui";
  * situation — everything else is optional.
  */
 
-const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? "";
-const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+/* Web3Forms delivery, with the live values as defaults.
+ *
+ * These are public by design: NEXT_PUBLIC_* is compiled into the client
+ * bundle, so the access key is readable in page source on any deployed
+ * build. Committing it therefore changes nothing about who can see it.
+ *
+ * They are defaults rather than env-only because a build on a machine
+ * without .env.local would otherwise ship a form that silently refuses
+ * to send — which is exactly what happened on the first deploy. An env
+ * var still wins if one is set, so staging can point somewhere else.
+ *
+ * The key routes to ethan@veyrostudio.co.uk. If it is ever abused,
+ * generate a replacement at web3forms.com and change it here.
+ *
+ * `||` rather than `??` on purpose: an env var set to an empty string
+ * must fall through to the default, not blank the form out.
+ */
+const ENDPOINT =
+  process.env.NEXT_PUBLIC_FORM_ENDPOINT || "https://api.web3forms.com/submit";
+const ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ||
+  "110ffbb1-cf37-4d82-8234-baab334ae2a8";
 
 type Status = "idle" | "submitting" | "success" | "error";
 type Errors = Partial<Record<"name" | "contact" | "business" | "trade", string>>;
