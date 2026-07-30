@@ -70,8 +70,11 @@ yarn-error.log*
 # Deployment bundles produced by `npm run package`
 # ---------------------------------------------------------------
 deploy-build/
-# any local build or unzipped-bundle folder
-veyro-*/
+# any local build or unzipped-bundle folder — but never the project itself
+/veyro-*/
+!/veyro-site/
+# extraction folders inside the project (veyro-site/veyro-deploy etc.)
+/veyro-site/veyro-*/
 *.zip
 
 # Windows shortcuts
