@@ -70,10 +70,10 @@ yarn-error.log*
 # Deployment bundles produced by `npm run package`
 # ---------------------------------------------------------------
 deploy-build/
+# any local build or unzipped-bundle folder
+veyro-*/
 *.zip
 
 # Windows shortcuts
 *.lnk
 
-veyro-deploy/
-veyro-next-only/

@@ -14,8 +14,10 @@ import {
 import { areas, principles, promises, site, trades } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: `${site.name} is a one-person web business based in ${site.baseTown}, building websites for local shops, salons and takeaways across ${site.region}.`,
+  /* "About" alone told Google nothing and wasted the strongest on-page
+     signal there is. */
+  title: "About — Local Web Designer in Wideopen, Newcastle",
+  description: `${site.name} is a one-person web business in ${site.baseTown}, near Newcastle, building websites for local shops, salons and takeaways. No agency, no account managers — you deal with me.`,
   alternates: { canonical: "/about" },
 };
 

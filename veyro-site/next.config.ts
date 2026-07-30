@@ -37,6 +37,32 @@ const nextConfig: NextConfig = {
    * immutable cache — their names change on every build, so they can
    * never go stale.
    */
+  /**
+   * Send www to the bare domain.
+   *
+   * Both hostnames were serving the site with a 200, which splits any
+   * link equity the domain earns across two addresses. The canonical
+   * tags already point at the bare domain so Google would probably
+   * consolidate them anyway — this makes it certain.
+   *
+   * Done here rather than in hPanel's redirect form because that writes
+   * an .htaccess for Apache serving public_html, and this site is served
+   * by the Node app behind a proxy, so it would never be consulted.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.veyrostudio.co.uk" }],
+        destination: "https://veyrostudio.co.uk/:path*",
+        /* `statusCode: 301` rather than `permanent: true`, which emits a
+           308. Google treats the two identically, but 301 is what every
+           SEO tool and every person reading a header expects to see. */
+        statusCode: 301,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
@@ -55,6 +81,27 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        /* Security headers. Not ranking factors, but this site sells web
+           development — it should not fail a prospective client's own
+           security scan. No Content-Security-Policy here: Next emits
+           inline scripts for hydration, and a CSP written without
+           checking those against every page white-screens the site. */
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains",
+          },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
           },
         ],
       },

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Wordmark } from "./Logo";
 import { ArrowUpRight, Phone } from "./ui";
+import { areaPages } from "@/lib/areas";
 import { areas, capabilities, nav, plans, site } from "@/lib/site";
 
 export default function Footer() {
@@ -104,11 +105,32 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Areas — genuinely useful for local search, not filler */}
+        {/* Areas — linked, not just listed. An unlinked town name does
+            nothing; a link gives the location pages a route in from every
+            page on the site. */}
         <div className="mt-14 border-t border-cream/12 pt-8" data-reveal>
           <h2 className="eyebrow mb-3 text-cream-3">Areas covered</h2>
-          <p className="max-w-3xl text-sm leading-relaxed text-cream-3/70">
-            {areas.join(" · ")} — and remotely with businesses anywhere in the UK.
+          <ul className="flex flex-wrap gap-x-1 gap-y-1">
+            {areaPages.map((a, i) => (
+              <li key={a.slug} className="flex items-center">
+                <Link
+                  href={`/website-design/${a.slug}`}
+                  className="group inline-flex min-h-11 items-center text-sm text-cream-3/80 transition-colors duration-300 hover:text-cream"
+                >
+                  <span className="link-sweep">{a.town}</span>
+                </Link>
+                {i < areaPages.length - 1 && (
+                  <span className="px-2 text-cream-3/40" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-cream-3/70">
+            Also {areas
+              .filter((a) => !areaPages.some((p) => p.town === a))
+              .join(", ")} — and remotely with businesses anywhere in the UK.
           </p>
         </div>
 

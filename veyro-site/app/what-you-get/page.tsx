@@ -13,9 +13,9 @@ import {
 import { capabilities, site, steps } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "What you get",
+  title: "What's Included — Website, Hosting & Updates from £99/mo",
   description:
-    "What's actually included: a mobile-first website, the groundwork to get found on Google, domain and hosting handled, and changes whenever you need them.",
+    "Every plan includes the website, your domain, hosting, SSL, getting you found on Google, and unlimited changes. No separate bills, and you never have to touch it.",
   alternates: { canonical: "/what-you-get" },
 };
 

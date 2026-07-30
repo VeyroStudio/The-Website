@@ -24,11 +24,17 @@ const sans = Public_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  /* Keywords first, brand last, under 60 characters so it does not
+     truncate in results. The previous title spent its opening words on
+     the brand name, which nobody is searching for yet. */
   title: {
-    default: `${site.name} — ${site.tagline} in ${site.baseTown} & the North East`,
+    default: "Website Design in Wideopen & Newcastle — from £99/mo",
     template: `%s — ${site.name}`,
   },
-  description: site.description,
+  /* Capped near 155 characters; the previous one ran to 209 and was cut
+     off mid-sentence in results. */
+  description:
+    "Websites for local businesses across Wideopen, Gosforth, Killingworth and Newcastle. From £99 a month, no big bill upfront. Built and looked after by one person.",
   applicationName: site.name,
   keywords: [
     "website design Wideopen",
@@ -106,6 +112,54 @@ const schema = {
     height: 322,
   },
   image: `${site.url}/og-logo.png`,
+  /* Approximate coordinates for Wideopen. A service-area business has no
+     shopfront to pin, but `geo` still helps Google associate the entity
+     with the right place — which is most of local ranking. */
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 55.0442,
+    longitude: -1.6206,
+  },
+  /* Radius rather than a street address, because that is what this
+     actually is: someone who travels to the customer. */
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: 55.0442,
+      longitude: -1.6206,
+    },
+    geoRadius: "25000",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "10:00",
+      closes: "14:00",
+    },
+  ],
+  /* Ties the site to the same entity across platforms. Update these when
+     the real profiles exist — a `sameAs` pointing at a bare
+     facebook.com is worse than none. */
+  sameAs: site.social.map((s) => s.href),
+  /* E-E-A-T: the site's whole proposition is "one identifiable local
+     person", so the person needs to exist in the markup, not just the
+     copy. */
+  founder: {
+    "@type": "Person",
+    name: site.owner,
+    jobTitle: "Web Designer",
+    worksFor: { "@type": "Organization", name: site.legalName },
+  },
+  currenciesAccepted: "GBP",
+  paymentAccepted: "Bank transfer, Direct debit, Card",
   knowsAbout: [
     "Website design",
     "Small business websites",

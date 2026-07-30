@@ -5,6 +5,7 @@ import PlanCards from "@/components/PlanCards";
 import Accordion from "@/components/Accordion";
 import Showcase from "@/components/Showcase";
 import ScrollLit from "@/components/ScrollLit";
+import { areaPages } from "@/lib/areas";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -377,18 +378,31 @@ export default function Home() {
               />
             </div>
           </div>
+          {/* Towns with their own page are links; the rest stay plain
+              text rather than pointing nowhere. */}
           <ul
             className="stagger mx-auto mt-9 flex max-w-3xl flex-wrap justify-center gap-2.5"
             data-reveal
           >
-            {areas.map((a) => (
-              <li
-                key={a}
-                className="rounded-full border border-line bg-cream px-4 py-2 text-sm font-medium text-navy"
-              >
-                {a}
-              </li>
-            ))}
+            {areas.map((a) => {
+              const page = areaPages.find((p) => p.town === a);
+              return (
+                <li key={a}>
+                  {page ? (
+                    <Link
+                      href={`/website-design/${page.slug}`}
+                      className="group inline-flex min-h-11 items-center rounded-full border border-line bg-cream px-4 text-sm font-medium text-navy transition-colors duration-300 hover:border-amber hover:bg-amber/10"
+                    >
+                      <span className="link-sweep">{a}</span>
+                    </Link>
+                  ) : (
+                    <span className="inline-flex min-h-11 items-center rounded-full border border-line bg-cream px-4 text-sm font-medium text-navy">
+                      {a}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <p className="mx-auto mt-7 max-w-xl text-sm leading-relaxed text-muted" data-reveal>
             Not on the list? Everything here works just as well over the phone
