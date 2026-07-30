@@ -80,3 +80,6 @@ deploy-build/
 # Windows shortcuts
 *.lnk
 
+
+# video production folder — source footage and renders, never committed
+/video/
