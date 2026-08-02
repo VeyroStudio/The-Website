@@ -34,12 +34,34 @@ try {
   process.exit(1);
 }
 
+/* The server is Linux but this build machine is Windows. npm only keeps
+ * the current platform's sharp binaries, and a bundle shipped without
+ * the linux ones makes Next silently fall back to serving unoptimised
+ * originals — no error, just a slower site. Ensure both exist before
+ * packaging; the linux pair prunes nothing when force-added directly. */
+try {
+  await stat(join(ROOT, "node_modules", "@img", "sharp-linux-x64"));
+} catch {
+  console.log("linux sharp binaries missing — installing…");
+  await run("npm", ["install", "--no-save", "--force", "@img/sharp-linux-x64", "@img/sharp-libvips-linux-x64"], { cwd: ROOT, shell: true });
+}
+
 await rm(OUT, { recursive: true, force: true });
 await rm(ZIP, { force: true });
 await mkdir(OUT, { recursive: true });
 
 /* 1. the standalone server, its package.json and trimmed node_modules */
 await cp(STANDALONE, OUT, { recursive: true });
+
+/* 1b. sharp, wholesale. Next's output tracing copies the .node file but
+ * not every DLL it links against, and it never copies binaries for a
+ * platform other than the build machine's. Either gap makes sharp fail
+ * to load on the server, and Next then serves unoptimised originals
+ * with no error. Copy the real installs over the traced stubs. */
+await rm(join(OUT, "node_modules", "sharp"), { recursive: true, force: true });
+await rm(join(OUT, "node_modules", "@img"), { recursive: true, force: true });
+await cp(join(ROOT, "node_modules", "sharp"), join(OUT, "node_modules", "sharp"), { recursive: true });
+await cp(join(ROOT, "node_modules", "@img"), join(OUT, "node_modules", "@img"), { recursive: true });
 
 /* 2. the hashed client chunks — without these every page 404s its JS */
 await cp(join(ROOT, ".next", "static"), join(OUT, ".next", "static"), {
