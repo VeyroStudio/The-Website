@@ -44,11 +44,26 @@ export type Demo = {
   hours: { days: string; open: string }[];
   /** Clearly-illustrative quotes, part of the demo fiction. */
   reviews: { text: string; name: string }[];
-  accent: string;
-  /** CSS variable of this demo's display font (set in demo/layout.tsx).
-   *  Different trades get different type — visible proof these are not
-   *  one template with the name swapped. */
-  displayFont: string;
+  /** Per-trade design system, generated via ui-ux-pro-max and
+   *  contrast-checked (every combination AA or better). Fonts are CSS
+   *  vars declared in demo/layout.tsx with preload:false, so a page
+   *  only downloads the two families it actually renders. */
+  theme: {
+    display: string;
+    body: string;
+    bg: string;
+    navBg: string;
+    sheet: string;
+    surface: string;
+    ink: string;
+    muted: string;
+    faint: string;
+    line: string;
+    lineStrong: string;
+    accent: string;
+    accentInk: string;
+    onAccent: string;
+  };
   hero: string;
   /** starter + growth: flat price list */
   services?: { name: string; price: string }[];
@@ -115,8 +130,22 @@ export const demos: Demo[] = [
       { text: "MOT done while I waited with a proper explanation of the advisories.", name: "Placeholder review" },
       { text: "Picked the car up from work and dropped it back. Sorted.", name: "Placeholder review" },
     ],
-    accent: "#FF7A1A",
-    displayFont: "var(--font-demo-archivo)",
+    theme: {
+      display: "var(--font-demo-lexend)",
+      body: "var(--font-demo-source)",
+      bg: "#F8FAFC",
+      navBg: "rgba(248,250,252,0.92)",
+      sheet: "#FFFFFF",
+      surface: "#FFFFFF",
+      ink: "#0F172A",
+      muted: "#475569",
+      faint: "#64748B",
+      line: "#E2E8F0",
+      lineStrong: "#CBD5E1",
+      accent: "#F97316",
+      accentInk: "#C2410C",
+      onAccent: "#1A1207",
+    },
     hero: "/demo/garage-hero.jpg",
     services: [
       { name: "MOT", price: "£40" },
@@ -148,8 +177,22 @@ export const demos: Demo[] = [
       { text: "In and out in twenty minutes, spot on every time.", name: "Placeholder review" },
       { text: "Took my lad for his first proper cut — brilliant with kids.", name: "Placeholder review" },
     ],
-    accent: "#C9A227",
-    displayFont: "var(--font-demo-display)",
+    theme: {
+      display: "var(--font-demo-abril)",
+      body: "var(--font-demo-merri)",
+      bg: "#1C1917",
+      navBg: "rgba(28,25,23,0.92)",
+      sheet: "#26221F",
+      surface: "rgba(255,255,255,0.04)",
+      ink: "#FAFAF9",
+      muted: "#D6D3D1",
+      faint: "#A8A29E",
+      line: "rgba(255,255,255,0.12)",
+      lineStrong: "rgba(255,255,255,0.25)",
+      accent: "#CA8A04",
+      accentInk: "#E0B32B",
+      onAccent: "#1C1917",
+    },
     hero: "/demo/hero.jpg",
     services: [
       { name: "Haircut", price: "£13" },
@@ -198,8 +241,22 @@ export const demos: Demo[] = [
       { text: "Ordered online, collected in fifteen minutes, still blistering hot.", name: "Placeholder review" },
       { text: "The Ember Special is worth the drive from Newcastle on its own.", name: "Placeholder review" },
     ],
-    accent: "#E64A2E",
-    displayFont: "var(--font-demo-slab)",
+    theme: {
+      display: "var(--font-demo-playfair)",
+      body: "var(--font-demo-karla)",
+      bg: "#FEF2F2",
+      navBg: "rgba(254,242,242,0.92)",
+      sheet: "#FFFFFF",
+      surface: "#FFFFFF",
+      ink: "#450A0A",
+      muted: "#7A3B36",
+      faint: "#9C5650",
+      line: "#FECACA",
+      lineStrong: "#FCA5A5",
+      accent: "#DC2626",
+      accentInk: "#B91C1C",
+      onAccent: "#FFFFFF",
+    },
     hero: "/demo/pizza-hero.jpg",
     menu: [
       {

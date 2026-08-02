@@ -38,11 +38,11 @@ export default function BookForm({
           <path d="m4 12.5 5 5L20 6.5" />
         </svg>
         <p className="mt-4 text-2xl font-semibold">Request sent</p>
-        <p className="mt-2 text-white/60">
+        <p className="mt-2 text-[var(--demo-faint)]">
           On the real site, this lands straight in the shop&rsquo;s phone and
           they text you back to confirm.
         </p>
-        <p className="mt-4 text-sm text-white/40">
+        <p className="mt-4 text-sm text-[var(--demo-faint)]">
           (Demo — nothing was actually sent.)
         </p>
         <button
@@ -61,33 +61,33 @@ export default function BookForm({
     <form onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-white/80">Your name</span>
+          <span className="mb-1.5 block text-sm font-semibold text-[var(--demo-muted)]">Your name</span>
           <input
             required
             name="name"
             autoComplete="name"
-            className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)]"
+            className="w-full rounded-lg border border-[var(--demo-line-strong)] bg-[var(--demo-surface)] px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)]"
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-white/80">Phone</span>
+          <span className="mb-1.5 block text-sm font-semibold text-[var(--demo-muted)]">Phone</span>
           <input
             required
             name="phone"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)]"
+            className="w-full rounded-lg border border-[var(--demo-line-strong)] bg-[var(--demo-surface)] px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)]"
           />
         </label>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-white/80">What are you after?</span>
+          <span className="mb-1.5 block text-sm font-semibold text-[var(--demo-muted)]">What are you after?</span>
           <select
             name="service"
-            className="w-full cursor-pointer rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)] [&>option]:bg-[#101114]"
+            className="w-full cursor-pointer rounded-lg border border-[var(--demo-line-strong)] bg-[var(--demo-surface)] px-4 py-3 text-base outline-none transition-colors focus:border-[var(--accent)] [&>option]:bg-[var(--demo-bg)]"
           >
             {services.map((s) => (
               <option key={s}>{s}</option>
@@ -95,11 +95,11 @@ export default function BookForm({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-white/80">When suits?</span>
+          <span className="mb-1.5 block text-sm font-semibold text-[var(--demo-muted)]">When suits?</span>
           <input
             name="when"
             placeholder="e.g. Saturday morning"
-            className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-base outline-none transition-colors placeholder:text-white/30 focus:border-[var(--accent)]"
+            className="w-full rounded-lg border border-[var(--demo-line-strong)] bg-[var(--demo-surface)] px-4 py-3 text-base outline-none transition-colors placeholder:text-[var(--demo-faint)] focus:border-[var(--accent)]"
           />
         </label>
       </div>
@@ -107,13 +107,13 @@ export default function BookForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full px-7 text-base font-bold text-black transition-opacity hover:opacity-85 disabled:opacity-60 sm:w-auto"
+        className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85 disabled:opacity-60 sm:w-auto"
         style={{ background: accent }}
       >
         {status === "sending" ? "Sending…" : "Request a slot"}
       </button>
 
-      <p className="text-sm text-white/40">
+      <p className="text-sm text-[var(--demo-faint)]">
         Demo form — submissions are disabled. On the real site this goes
         straight to the shop&rsquo;s phone.
       </p>

@@ -26,7 +26,7 @@ export default function DemoNav({
   const base = `/demo/${slug}`;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#101114]/92 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-[var(--demo-line)] bg-[var(--demo-nav-bg)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
         <Link
           href={base}
@@ -47,7 +47,7 @@ export default function DemoNav({
                   href={href}
                   aria-current={active ? "page" : undefined}
                   className={`relative inline-flex min-h-10 shrink-0 items-center px-3 text-sm font-medium transition-colors ${
-                    active ? "text-[var(--accent)]" : "text-white/70 hover:text-white"
+                    active ? "text-[var(--demo-accent-ink)]" : "text-[var(--demo-muted)] hover:text-[var(--demo-ink)]"
                   } after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:bg-[var(--accent)] after:transition-transform after:duration-500 ${
                     active ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"
                   }`}
@@ -58,13 +58,13 @@ export default function DemoNav({
             })}
           <a
             href={`tel:${phone.replace(/\s/g, "")}`}
-            className="ml-1 hidden min-h-10 shrink-0 items-center px-3 text-sm font-semibold text-white/80 transition-colors hover:text-[var(--accent)] md:inline-flex"
+            className="ml-1 hidden min-h-10 shrink-0 items-center px-3 text-sm font-semibold text-[var(--demo-muted)] transition-colors hover:text-[var(--demo-accent-ink)] md:inline-flex"
           >
             {phone}
           </a>
           <Link
             href={cta.href}
-            className="ml-2 inline-flex min-h-10 shrink-0 items-center rounded-full bg-[var(--accent)] px-4 text-sm font-bold text-black transition-opacity hover:opacity-85"
+            className="ml-2 inline-flex min-h-10 shrink-0 items-center rounded-full bg-[var(--accent)] px-4 text-sm font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
           >
             {cta.label}
           </Link>

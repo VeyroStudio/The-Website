@@ -28,12 +28,12 @@ export default async function DemoBook({ params }: Params) {
         BOOK A CHAIR
       </h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
-      <p className="mt-6 max-w-xl text-white/60">
+      <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Tell us what you&rsquo;re after and when suits — we&rsquo;ll text
         back to confirm. Prefer to talk? Ring{" "}
         <a
           href={`tel:${demo.phone.replace(/\s/g, "")}`}
-          className="font-semibold text-[var(--accent)]"
+          className="font-semibold text-[var(--demo-accent-ink)]"
         >
           {demo.phone}
         </a>
@@ -43,7 +43,7 @@ export default async function DemoBook({ params }: Params) {
       <div className="mt-10" data-reveal>
         <BookForm
           services={demo.services.map((s) => s.name)}
-          accent={demo.accent}
+          accent={demo.theme.accent}
         />
       </div>
     </section>

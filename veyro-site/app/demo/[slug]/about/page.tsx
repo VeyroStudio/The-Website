@@ -33,10 +33,10 @@ export default async function DemoAbout({ params }: Params) {
 
       <div className="mt-10 grid gap-10 md:grid-cols-2" data-reveal>
         <div>
-          <p className="text-2xl font-semibold leading-snug text-white/90">
+          <p className="text-2xl font-semibold leading-snug text-[var(--demo-ink)]">
             {demo.about.lede}
           </p>
-          <div className="stagger mt-6 space-y-4 text-lg leading-relaxed text-white/70">
+          <div className="stagger mt-6 space-y-4 text-lg leading-relaxed text-[var(--demo-muted)]">
             {demo.about.body.map((p) => (
               <p key={p}>{p}</p>
             ))}
@@ -60,9 +60,9 @@ export default async function DemoAbout({ params }: Params) {
         </h2>
         <ul className="stagger mt-6 space-y-3">
           {demo.hours.map((h) => (
-            <li key={h.days} className="flex justify-between border-b border-white/10 pb-3">
+            <li key={h.days} className="flex justify-between border-b border-[var(--demo-line)] pb-3">
               <span>{h.days}</span>
-              <span className={h.open === "Closed" ? "text-white/40" : "font-semibold"}>
+              <span className={h.open === "Closed" ? "text-[var(--demo-faint)]" : "font-semibold"}>
                 {h.open}
               </span>
             </li>
@@ -72,7 +72,7 @@ export default async function DemoAbout({ params }: Params) {
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-black transition-opacity hover:opacity-85"
+        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

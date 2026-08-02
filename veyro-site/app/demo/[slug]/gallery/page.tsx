@@ -29,7 +29,7 @@ export default async function DemoGallery({ params }: Params) {
         THE WORK
       </h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
-      <p className="mt-6 max-w-xl text-white/60">
+      <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Fades, scissor cuts, beard work. When this site is real, this page
         fills with your shop&rsquo;s own photographs — the single most
         persuasive thing a barbershop can put online.
@@ -55,7 +55,7 @@ export default async function DemoGallery({ params }: Params) {
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-black transition-opacity hover:opacity-85"
+        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

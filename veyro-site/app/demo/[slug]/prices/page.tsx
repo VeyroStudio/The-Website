@@ -28,27 +28,27 @@ export default async function DemoPrices({ params }: Params) {
         PRICES
       </h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
-      <p className="mt-6 text-white/60">
+      <p className="mt-6 text-[var(--demo-faint)]">
         No hidden extras — the price on the list is the price in the chair.
       </p>
 
-      <ul className="stagger mt-10 divide-y divide-white/10 border-y border-white/10" data-reveal>
+      <ul className="stagger mt-10 divide-y divide-[var(--demo-line)] border-y border-[var(--demo-line)]" data-reveal>
         {demo.services.map((s) => (
           <li key={s.name} className="demo-row flex items-baseline justify-between gap-4 py-5">
             <span className="text-xl">{s.name}</span>
-            <span className="mx-2 grow border-b border-dotted border-white/20" aria-hidden="true" />
-            <span className="text-xl font-bold text-[var(--accent)]">{s.price}</span>
+            <span className="mx-2 grow border-b border-dotted border-[var(--demo-line-strong)]" aria-hidden="true" />
+            <span className="text-xl font-bold text-[var(--demo-accent-ink)]">{s.price}</span>
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 text-sm text-white/50">
+      <p className="mt-6 text-sm text-[var(--demo-faint)]">
         Walk-ins welcome. Card and cash. Kids and OAP rates weekdays.
       </p>
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-black transition-opacity hover:opacity-85"
+        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

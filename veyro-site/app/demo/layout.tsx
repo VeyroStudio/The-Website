@@ -1,46 +1,75 @@
 import type { Metadata } from "next";
-import { Alfa_Slab_One, Archivo_Black, Bebas_Neue, Inter } from "next/font/google";
+import {
+  Abril_Fatface,
+  Karla,
+  Lexend,
+  Merriweather,
+  Playfair_Display_SC,
+  Source_Sans_3,
+} from "next/font/google";
 import RevealRoot from "@/components/RevealRoot";
 import "./demo.css";
 
 /**
  * Demo-site shell. Deliberately carries NONE of VEYRO's chrome — no
- * nav, no footer, no grain, different fonts — because a demo is shown
- * to a prospect as a preview of THEIR site, and it has to feel like
- * theirs, not like a page inside ours.
+ * nav, no footer, no grain — because a demo is shown to a prospect as
+ * a preview of THEIR site, and it has to feel like theirs.
  *
- * Three display fonts, one per trade: Bebas for the barber, Archivo
- * Black for the garage, Alfa Slab for the pizzeria. Each demo picks
- * one via `displayFont` in lib/demos.ts — the visible proof that the
- * demos aren't a single template with the name swapped. Only loaded
- * on /demo routes, so they cost the main site nothing.
+ * Font pairings come from the ui-ux-pro-max design systems, one per
+ * trade:
+ *   barber  Abril Fatface + Merriweather   (vintage, dramatic)
+ *   garage  Lexend + Source Sans 3         (trustworthy, legible)
+ *   pizza   Playfair Display SC + Karla    (culinary, warm)
+ *
+ * All declared with preload:false — six families would otherwise be
+ * preloaded on every demo page, when each page only renders two. With
+ * preload off, the browser fetches only the families the current
+ * demo's CSS variables actually resolve to.
  */
 
-const bebas = Bebas_Neue({
-  variable: "--font-demo-display",
+const abril = Abril_Fatface({
+  variable: "--font-demo-abril",
   weight: "400",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
-const archivo = Archivo_Black({
-  variable: "--font-demo-archivo",
-  weight: "400",
+const merri = Merriweather({
+  variable: "--font-demo-merri",
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
-const slab = Alfa_Slab_One({
-  variable: "--font-demo-slab",
-  weight: "400",
+const lexend = Lexend({
+  variable: "--font-demo-lexend",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
-const bodyFont = Inter({
-  variable: "--font-demo-body",
+const source = Source_Sans_3({
+  variable: "--font-demo-source",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
+});
+
+const playfair = Playfair_Display_SC({
+  variable: "--font-demo-playfair",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const karla = Karla({
+  variable: "--font-demo-karla",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -61,7 +90,7 @@ export default function DemoLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div
-      className={`${bebas.variable} ${archivo.variable} ${slab.variable} ${bodyFont.variable}`}
+      className={`${abril.variable} ${merri.variable} ${lexend.variable} ${source.variable} ${playfair.variable} ${karla.variable}`}
     >
       <RevealRoot />
       {children}

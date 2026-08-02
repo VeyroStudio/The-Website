@@ -33,13 +33,13 @@ export default async function DemoMenu({ params }: Params) {
         Menu
       </h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
-      <p className="mt-6 max-w-xl text-white/60">
+      <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Order for collection — ready in about twenty minutes. Tap + to add,
         then check out from the basket.
       </p>
 
       <div className="mt-6">
-        <OrderMenu menu={demo.menu} accent={demo.accent} />
+        <OrderMenu menu={demo.menu} accent={demo.theme.accent} />
       </div>
     </section>
   );
