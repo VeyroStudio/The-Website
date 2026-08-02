@@ -1,3 +1,6 @@
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import RevealRoot from "@/components/RevealRoot";
 import {
   ArrowRight,
   ButtonLink,
@@ -8,7 +11,23 @@ import {
 } from "@/components/ui";
 import { site } from "@/lib/site";
 
+/* Root-level so it catches unknown paths anywhere, including under
+   /demo — which means it sits outside the (site) layout and has to
+   bring VEYRO's chrome itself. */
 export default function NotFound() {
+  return (
+    <div className="grain">
+      <RevealRoot />
+      <Nav />
+      <main className="page-in pt-[var(--nav-h)]">
+        <NotFoundBody />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function NotFoundBody() {
   return (
     <section className="relative flex min-h-[calc(100svh-var(--nav-h))] items-center overflow-hidden py-24">
       <div

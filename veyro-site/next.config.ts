@@ -85,6 +85,19 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        /* Demo previews for prospects: never indexed, at the HTTP level
+           so it holds even for the raw images under the demo pages. The
+           meta robots tag and robots.txt disallow are the other two
+           layers. */
+        source: "/demo/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive, nosnippet",
+          },
+        ],
+      },
+      {
         /* Security headers. Not ranking factors, but this site sells web
            development — it should not fail a prospective client's own
            security scan. No Content-Security-Policy here: Next emits
