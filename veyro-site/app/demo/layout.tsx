@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Inter } from "next/font/google";
 import RevealRoot from "@/components/RevealRoot";
+import "./demo.css";
 
 /**
  * Demo-site shell. Deliberately carries NONE of VEYRO's chrome — no
