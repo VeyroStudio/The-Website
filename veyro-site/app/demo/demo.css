@@ -313,3 +313,55 @@ html.js .is-in .demo-snap > * {
     transform: none;
   }
 }
+
+/* ============================================================
+   Apple-style scroll-scrubbed motion. These track the scroll
+   position via native view timelines — no listeners, off the
+   main thread. Browsers without support (Safari/Firefox today)
+   get the finished composition; that's the design, not a bug.
+   ============================================================ */
+
+/* Hero content eases up and dims as the hero scrolls away —
+   the classic Apple product-page exit. */
+@keyframes demo-hero-exit {
+  to {
+    opacity: 0.1;
+    transform: translateY(-46px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .demo-hero-exit {
+    animation: demo-hero-exit linear both;
+    animation-timeline: view();
+    animation-range: exit 10% exit 90%;
+  }
+}
+
+/* Photo grids drift against the scroll — a few px of parallax
+   that makes the page feel layered rather than flat. */
+@keyframes demo-scrub {
+  from {
+    transform: translateY(34px);
+  }
+  to {
+    transform: translateY(-14px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .demo-scrub {
+    animation: demo-scrub linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-hero-exit,
+  .demo-scrub {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

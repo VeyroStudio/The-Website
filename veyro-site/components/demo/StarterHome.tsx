@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ScrollLit from "@/components/ScrollLit";
 import type { Demo } from "@/lib/demos";
 
 /**
@@ -29,7 +30,7 @@ export default function StarterHome({ demo }: { demo: Demo }) {
           className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent"
           aria-hidden="true"
         />
-        <div className="relative mx-auto w-full max-w-5xl px-4 pb-14">
+        <div className="demo-hero-exit relative mx-auto w-full max-w-5xl px-4 pb-14">
           <p
             className="demo-rise text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent)] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]"
             style={{ ["--d" as string]: "100ms" }}
@@ -84,6 +85,15 @@ export default function StarterHome({ demo }: { demo: Demo }) {
         </ul>
       </section>
 
+      {/* Scroll-scrubbed statement — words light up as you scroll */}
+      <section className="mx-auto max-w-5xl px-4 pt-20">
+        <ScrollLit
+          text={demo.statement}
+          as="p"
+          className="[font-family:var(--demo-display)] max-w-3xl text-[clamp(1.7rem,4.6vw,3rem)] leading-tight"
+        />
+      </section>
+
       {/* Services & prices */}
       <section className="mx-auto max-w-3xl px-4 py-20" data-reveal>
         <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl uppercase">
@@ -112,7 +122,7 @@ export default function StarterHome({ demo }: { demo: Demo }) {
 <span>What drivers say</span>
 </h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
-          <div className="stagger mt-8 grid gap-4 md:grid-cols-3">
+          <div className="demo-scrub stagger mt-8 grid gap-4 md:grid-cols-3">
             {demo.reviews.map((r) => (
               <figure key={r.text} className="rounded-lg border border-[var(--demo-line)] p-5">
                 <div className="flex gap-1 text-[var(--demo-accent-ink)]" aria-label="5 star review">

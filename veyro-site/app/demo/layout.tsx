@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import {
   Abril_Fatface,
+  Fraunces,
   Karla,
   Lexend,
   Merriweather,
-  Playfair_Display_SC,
   Source_Sans_3,
 } from "next/font/google";
 import RevealRoot from "@/components/RevealRoot";
@@ -19,7 +19,7 @@ import "./demo.css";
  * trade:
  *   barber  Abril Fatface + Merriweather   (vintage, dramatic)
  *   garage  Lexend + Source Sans 3         (trustworthy, legible)
- *   pizza   Playfair Display SC + Karla    (culinary, warm)
+ *   pizza   Fraunces + Karla               (culinary, premium, fire-lit dark)
  *
  * All declared with preload:false — six families would otherwise be
  * preloaded on every demo page, when each page only renders two. With
@@ -57,9 +57,8 @@ const source = Source_Sans_3({
   preload: false,
 });
 
-const playfair = Playfair_Display_SC({
-  variable: "--font-demo-playfair",
-  weight: ["400", "700"],
+const fraunces = Fraunces({
+  variable: "--font-demo-fraunces",
   subsets: ["latin"],
   display: "swap",
   preload: false,
@@ -90,7 +89,7 @@ export default function DemoLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div
-      className={`${abril.variable} ${merri.variable} ${lexend.variable} ${source.variable} ${playfair.variable} ${karla.variable}`}
+      className={`${abril.variable} ${merri.variable} ${lexend.variable} ${source.variable} ${fraunces.variable} ${karla.variable}`}
     >
       <RevealRoot />
       {children}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ScrollLit from "@/components/ScrollLit";
 import type { Demo } from "@/lib/demos";
 
 /**
@@ -32,7 +33,7 @@ export default function ProHome({ demo }: { demo: Demo }) {
           aria-hidden="true"
         />
         <div className="demo-ember" aria-hidden="true" />
-        <div className="relative mx-auto w-full max-w-5xl px-4 pb-16">
+        <div className="demo-hero-exit relative mx-auto w-full max-w-5xl px-4 pb-16">
           <p
             className="demo-rise text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent)] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]"
             style={{ ["--d" as string]: "100ms" }}
@@ -85,6 +86,15 @@ export default function ProHome({ demo }: { demo: Demo }) {
         </ul>
       </section>
 
+      {/* Scroll-scrubbed statement — words light up as you scroll */}
+      <section className="mx-auto max-w-5xl px-4 pt-20">
+        <ScrollLit
+          text={demo.statement}
+          as="p"
+          className="[font-family:var(--demo-display)] max-w-3xl text-[clamp(1.7rem,4.6vw,3rem)] leading-tight"
+        />
+      </section>
+
       {/* Menu teaser — the funnel into the ordering page */}
       <section className="mx-auto max-w-5xl px-4 py-20" data-reveal>
         <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl md:text-5xl">
@@ -120,7 +130,7 @@ export default function ProHome({ demo }: { demo: Demo }) {
 
       {/* Food photography */}
       <section className="mx-auto max-w-5xl px-4 pb-20" data-reveal>
-        <div className="stagger grid grid-cols-3 gap-3">
+        <div className="demo-scrub stagger grid grid-cols-3 gap-3">
           {["/demo/pizza-1.jpg", "/demo/pizza-2.jpg", "/demo/pizza-3.jpg"].map((src) => (
             <div key={src} className="demo-img-reveal overflow-hidden rounded-lg">
               <Image

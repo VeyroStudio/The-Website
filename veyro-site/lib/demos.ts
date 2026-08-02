@@ -39,6 +39,9 @@ export type Demo = {
   address: string;
   /** Placeholder until the prospect is real. */
   phone: string;
+  /** One-line trade statement, revealed word by word as the page
+   *  scrolls — the Apple device. Different register per trade. */
+  statement: string;
   /** Three short trust points for the strip under the hero. */
   usps: string[];
   hours: { days: string; open: string }[];
@@ -122,6 +125,7 @@ export const demos: Demo[] = [
     town: "Killingworth",
     address: "Unit 4, West Lane Industrial Estate, Killingworth NE12",
     phone: "0191 000 0001",
+    statement: "Booked in the morning. Diagnosed by lunch. Back on the road by tea.",
     usps: ["MOT while you wait", "All makes & models", "Free local collection"],
     hours: [
       { days: "Monday – Friday", open: "8:00 – 17:30" },
@@ -170,6 +174,7 @@ export const demos: Demo[] = [
     town: "Wideopen",
     address: "12 Front Street, Wideopen, Newcastle NE13",
     phone: "0191 000 0000",
+    statement: "Walk in. Sit down. Walk out sharp.",
     usps: ["Walk-ins welcome", "Open six days", "Card & cash"],
     hours: [
       { days: "Monday – Friday", open: "9:00 – 18:00" },
@@ -236,6 +241,7 @@ export const demos: Demo[] = [
     town: "Cramlington",
     address: "7 Forum Way, Cramlington NE23",
     phone: "0191 000 0002",
+    statement: "Hand-stretched at four. Wood-fired at 450 degrees. Boxed in ninety seconds.",
     usps: ["Wood-fired oven", "Collection in 20 min", "Family run"],
     hours: [
       { days: "Tuesday – Sunday", open: "16:30 – 22:30" },
@@ -247,21 +253,21 @@ export const demos: Demo[] = [
       { text: "The Ember Special is worth the drive from Newcastle on its own.", name: "Placeholder review" },
     ],
     theme: {
-      display: "var(--font-demo-playfair)",
+      display: "var(--font-demo-fraunces)",
       body: "var(--font-demo-karla)",
-      bg: "#FEF2F2",
-      navBg: "rgba(254,242,242,0.92)",
-      sheet: "#FFFFFF",
-      surface: "#FFFFFF",
-      ink: "#450A0A",
-      muted: "#7A3B36",
-      faint: "#9C5650",
-      line: "#FECACA",
-      lineStrong: "#FCA5A5",
-      accent: "#DC2626",
-      accentInk: "#B91C1C",
-      onAccent: "#FFFFFF",
-      ruleBg: "linear-gradient(90deg, #DC2626, #CA8A04)",
+      bg: "#140D0A",
+      navBg: "rgba(20,13,10,0.92)",
+      sheet: "#1F1512",
+      surface: "rgba(255,255,255,0.04)",
+      ink: "#FAF3EC",
+      muted: "#D9C3B0",
+      faint: "#A98D77",
+      line: "rgba(255,255,255,0.12)",
+      lineStrong: "rgba(255,255,255,0.28)",
+      accent: "#FF5A2E",
+      accentInk: "#FFA061",
+      onAccent: "#1D0E07",
+      ruleBg: "linear-gradient(90deg, #FF5A2E, #FFB25C)",
     },
     hero: "/demo/pizza-hero.jpg",
     menu: [

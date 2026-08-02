@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ScrollLit from "@/components/ScrollLit";
 import type { Demo } from "@/lib/demos";
 
 /**
@@ -31,7 +32,7 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
           className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"
           aria-hidden="true"
         />
-        <div className="relative mx-auto w-full max-w-5xl px-4 pb-16">
+        <div className="demo-hero-exit relative mx-auto w-full max-w-5xl px-4 pb-16">
           <p
             className="demo-rise text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent)] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]"
             style={{ ["--d" as string]: "100ms" }}
@@ -84,6 +85,15 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
         </ul>
       </section>
 
+      {/* Scroll-scrubbed statement — words light up as you scroll */}
+      <section className="mx-auto max-w-5xl px-4 pt-20">
+        <ScrollLit
+          text={demo.statement}
+          as="p"
+          className="[font-family:var(--demo-display)] max-w-3xl text-[clamp(1.7rem,4.6vw,3rem)] leading-tight"
+        />
+      </section>
+
       {/* Prices teaser */}
       <section className="mx-auto max-w-5xl px-4 py-20" data-reveal>
         <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
@@ -116,7 +126,7 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
 <span>THE SHOP</span>
 </h2>
         <div className="demo-rule mt-3" aria-hidden="true" />
-        <div className="stagger mt-8 grid grid-cols-3 gap-3">
+        <div className="demo-scrub stagger mt-8 grid grid-cols-3 gap-3">
           {(demo.gallery ?? []).slice(0, 3).map((g) => (
             <div key={g.src} className="demo-img-reveal overflow-hidden rounded-lg">
               <Image
