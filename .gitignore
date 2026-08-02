@@ -83,3 +83,6 @@ deploy-build/
 
 # video production folder — source footage and renders, never committed
 /video/
+
+# Internal business documents — never publish
+VEYRO LEGALS/

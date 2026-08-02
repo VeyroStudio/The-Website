@@ -26,10 +26,6 @@ export const site = {
   region: "North East England",
   owner: "Ethan",
   locale: "en-GB",
-  social: [
-    { label: "Facebook", href: "https://facebook.com/" },
-    { label: "Instagram", href: "https://instagram.com/" },
-  ],
 } as const;
 
 export const nav = [

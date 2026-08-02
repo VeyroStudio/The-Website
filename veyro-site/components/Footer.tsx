@@ -150,18 +150,6 @@ export default function Footer() {
             >
               <span className="link-sweep">Privacy</span>
             </Link>
-            {site.social.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="group inline-flex min-h-11 items-center gap-1.5 transition-colors duration-300 hover:text-cream"
-              >
-                <span className="link-sweep">{s.label}</span>
-                <ArrowUpRight className="size-3" />
-              </a>
-            ))}
           </p>
         </div>
       </div>

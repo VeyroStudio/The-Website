@@ -145,10 +145,9 @@ const schema = {
       closes: "14:00",
     },
   ],
-  /* Ties the site to the same entity across platforms. Update these when
-     the real profiles exist — a `sameAs` pointing at a bare
-     facebook.com is worse than none. */
-  sameAs: site.social.map((s) => s.href),
+  /* No `sameAs`: there are no social profiles to point at. Add it back
+     with the real profile URLs if VEYRO accounts go live — it ties the
+     site to the same entity across platforms. */
   /* E-E-A-T: the site's whole proposition is "one identifiable local
      person", so the person needs to exist in the markup, not just the
      copy. */
