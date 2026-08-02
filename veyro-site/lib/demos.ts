@@ -1,37 +1,38 @@
 /**
- * Prospect demo sites, served at /demo/<slug>.
+ * Prospect demo sites, served at /demo/<slug> — one per price point,
+ * so the demo you send matches the plan you're pitching:
  *
- * This is the playbook's closing move made real: "I put together a
- * quick example of what a site for [Business] could look like." Add an
- * entry, deploy, and send the prospect their private link.
+ *   starter  one page, phone-first          (garage)
+ *   growth   multi-page with booking        (barber)
+ *   pro      multi-page with online ordering (pizza takeaway)
  *
  * Privacy model — these pages are hidden three ways:
  *   1. robots.txt disallows /demo/ entirely
  *   2. every response carries X-Robots-Tag: noindex + a meta robots tag
  *   3. slugs end in a random suffix, so links cannot be guessed, and
  *      nothing on the site links to them
- * They are NOT authenticated. Anyone with the exact link can open it —
- * which is the point (prospects click straight through), but it means
- * nothing confidential goes in a demo.
+ * They are NOT authenticated: anyone with the exact link can open it,
+ * which is the point — prospects click straight through. Never put
+ * anything confidential in a demo.
  *
  * House rules for entries:
- *   - Fictional business names only, until a prospect says yes. Never
- *     put a real trading name on a demo without asking them first.
- *   - Placeholder phone numbers (07000 / 0191 000 form), never real ones.
- *   - The footer credit ("Demo by VEYRO") is part of the sales pitch —
- *     keep it.
+ *   - Fictional business names only, until a prospect says yes.
+ *   - Placeholder phone numbers, never real ones.
+ *   - The footer credit is part of the sales pitch — keep it.
  *
- * To make a demo for a real prospect: copy an entry, change the slug
- * suffix (any 5 random characters), swap the name/services/prices to
- * match what you saw in their shop, deploy.
+ * For a real prospect: copy the entry whose plan you're pitching,
+ * change the slug suffix (any 5 random characters), swap in what you
+ * saw in their shop, deploy, send the link.
  */
 
+export type MenuSection = {
+  category: string;
+  items: { name: string; desc?: string; price: string }[];
+};
+
 export type Demo = {
-  /** Unguessable link path: business-name plus a random suffix. */
   slug: string;
-  /** Which plan this demo is selling. Growth demos get the multi-page
-   *  treatment — that is the £199 plan's whole differentiator. */
-  plan: "starter" | "growth";
+  plan: "starter" | "growth" | "pro";
   business: string;
   strapline: string;
   town: string;
@@ -40,18 +41,94 @@ export type Demo = {
   phone: string;
   /** Three short trust points for the strip under the hero. */
   usps: string[];
-  services: { name: string; price: string }[];
   hours: { days: string; open: string }[];
   /** Clearly-illustrative quotes, part of the demo fiction. */
   reviews: { text: string; name: string }[];
-  /** The about page — where a Growth site earns its keep. */
-  about: { lede: string; body: string[] };
-  gallery: { src: string; alt: string }[];
-  /** Accent colour for this trade. */
   accent: string;
+  /** CSS variable of this demo's display font (set in demo/layout.tsx).
+   *  Different trades get different type — visible proof these are not
+   *  one template with the name swapped. */
+  displayFont: string;
+  hero: string;
+  /** starter + growth: flat price list */
+  services?: { name: string; price: string }[];
+  /** growth: the deeper pages */
+  about?: { lede: string; body: string[] };
+  gallery?: { src: string; alt: string }[];
+  /** pro: categorised menu for the ordering demo */
+  menu?: MenuSection[];
 };
 
+export const planMeta = {
+  starter: { label: "Starter", price: "£99" },
+  growth: { label: "Growth", price: "£199" },
+  pro: { label: "Pro", price: "£299" },
+} as const;
+
+/** The sub-pages a given demo actually has (drives nav + routing). */
+export function pagesFor(demo: Demo): { path: string; label: string }[] {
+  switch (demo.plan) {
+    case "starter":
+      return [];
+    case "growth":
+      return [
+        { path: "", label: "Home" },
+        { path: "prices", label: "Prices" },
+        { path: "gallery", label: "Gallery" },
+        { path: "about", label: "About" },
+        { path: "book", label: "Book" },
+      ];
+    case "pro":
+      return [
+        { path: "", label: "Home" },
+        { path: "menu", label: "Menu" },
+      ];
+  }
+}
+
+/** The nav's call-to-action for a demo. */
+export function ctaFor(demo: Demo): { href: string; label: string } {
+  const base = `/demo/${demo.slug}`;
+  if (demo.plan === "pro") return { href: `${base}/menu`, label: "Order" };
+  if (demo.plan === "growth") return { href: `${base}/book`, label: "Book" };
+  return { href: `tel:${demo.phone.replace(/\s/g, "")}`, label: "Call now" };
+}
+
 export const demos: Demo[] = [
+  /* ---------------- STARTER — £99: one page, phone-first ---------- */
+  {
+    slug: "northtyne-autos-m2r7v",
+    plan: "starter",
+    business: "NORTH TYNE AUTOS",
+    strapline: "MOTs, servicing and repairs. All makes. Straight answers.",
+    town: "Killingworth",
+    address: "Unit 4, West Lane Industrial Estate, Killingworth NE12",
+    phone: "0191 000 0001",
+    usps: ["MOT while you wait", "All makes & models", "Free local collection"],
+    hours: [
+      { days: "Monday – Friday", open: "8:00 – 17:30" },
+      { days: "Saturday", open: "8:00 – 12:00" },
+      { days: "Sunday", open: "Closed" },
+    ],
+    reviews: [
+      { text: "Quoted me half what the dealer wanted. Honest lads.", name: "Placeholder review" },
+      { text: "MOT done while I waited with a proper explanation of the advisories.", name: "Placeholder review" },
+      { text: "Picked the car up from work and dropped it back. Sorted.", name: "Placeholder review" },
+    ],
+    accent: "#FF7A1A",
+    displayFont: "var(--font-demo-archivo)",
+    hero: "/demo/garage-hero.jpg",
+    services: [
+      { name: "MOT", price: "£40" },
+      { name: "Interim service", price: "£89" },
+      { name: "Full service", price: "£149" },
+      { name: "Brakes (per axle)", price: "from £120" },
+      { name: "Diagnostics", price: "£45" },
+      { name: "Tyres & tracking", price: "Call for price" },
+    ],
+  },
+
+  /* ---------------- GROWTH — £199: multi-page + booking ------------ */
   {
     slug: "northside-barbers-k4x9q",
     plan: "growth",
@@ -61,16 +138,6 @@ export const demos: Demo[] = [
     address: "12 Front Street, Wideopen, Newcastle NE13",
     phone: "0191 000 0000",
     usps: ["Walk-ins welcome", "Open six days", "Card & cash"],
-    services: [
-      { name: "Haircut", price: "£13" },
-      { name: "Skin fade", price: "£15" },
-      { name: "Beard trim", price: "£8" },
-      { name: "Cut & beard", price: "£20" },
-      { name: "Hot towel shave", price: "£16" },
-      { name: "Kids (under 12)", price: "£10" },
-      { name: "OAP weekdays", price: "£9" },
-      { name: "Restyle consultation", price: "Free" },
-    ],
     hours: [
       { days: "Monday – Friday", open: "9:00 – 18:00" },
       { days: "Saturday", open: "8:00 – 16:00" },
@@ -80,6 +147,19 @@ export const demos: Demo[] = [
       { text: "Best fade in the North East. Never going anywhere else.", name: "Placeholder review" },
       { text: "In and out in twenty minutes, spot on every time.", name: "Placeholder review" },
       { text: "Took my lad for his first proper cut — brilliant with kids.", name: "Placeholder review" },
+    ],
+    accent: "#C9A227",
+    displayFont: "var(--font-demo-display)",
+    hero: "/demo/hero.jpg",
+    services: [
+      { name: "Haircut", price: "£13" },
+      { name: "Skin fade", price: "£15" },
+      { name: "Beard trim", price: "£8" },
+      { name: "Cut & beard", price: "£20" },
+      { name: "Hot towel shave", price: "£16" },
+      { name: "Kids (under 12)", price: "£10" },
+      { name: "OAP weekdays", price: "£9" },
+      { name: "Restyle consultation", price: "Free" },
     ],
     about: {
       lede: "A proper barbershop, the way they used to be.",
@@ -97,19 +177,61 @@ export const demos: Demo[] = [
       { src: "/demo/gallery-5.jpg", alt: "Line-up detail" },
       { src: "/demo/gallery-6.jpg", alt: "Beard trim" },
     ],
-    accent: "#C9A227",
+  },
+
+  /* ---------------- PRO — £299: multi-page + online ordering ------- */
+  {
+    slug: "ember-pizza-t8w3z",
+    plan: "pro",
+    business: "EMBER PIZZA CO.",
+    strapline: "Wood-fired, hand-stretched, ready in twenty minutes.",
+    town: "Cramlington",
+    address: "7 Forum Way, Cramlington NE23",
+    phone: "0191 000 0002",
+    usps: ["Wood-fired oven", "Collection in 20 min", "Family run"],
+    hours: [
+      { days: "Tuesday – Sunday", open: "16:30 – 22:30" },
+      { days: "Monday", open: "Closed" },
+    ],
+    reviews: [
+      { text: "Proper Neapolitan crust. Best pizza this side of the Tyne.", name: "Placeholder review" },
+      { text: "Ordered online, collected in fifteen minutes, still blistering hot.", name: "Placeholder review" },
+      { text: "The Ember Special is worth the drive from Newcastle on its own.", name: "Placeholder review" },
+    ],
+    accent: "#E64A2E",
+    displayFont: "var(--font-demo-slab)",
+    hero: "/demo/pizza-hero.jpg",
+    menu: [
+      {
+        category: "Pizzas",
+        items: [
+          { name: "Margherita", desc: "San Marzano tomato, fior di latte, basil", price: "£8.50" },
+          { name: "Pepperoni", desc: "Double pepperoni, mozzarella, hot honey", price: "£10.00" },
+          { name: "Diavola", desc: "Nduja, chilli, salami, red onion", price: "£11.00" },
+          { name: "Funghi", desc: "Wild mushroom, taleggio, truffle oil", price: "£10.50" },
+          { name: "Ember Special", desc: "Smoked brisket, caramelised onion, smoked cheddar", price: "£12.50" },
+        ],
+      },
+      {
+        category: "Sides",
+        items: [
+          { name: "Garlic bread", desc: "Wood-fired, rosemary salt", price: "£4.50" },
+          { name: "Dough balls", desc: "With garlic butter", price: "£4.00" },
+          { name: "Rocket & parmesan salad", price: "£4.50" },
+        ],
+      },
+      {
+        category: "Drinks & desserts",
+        items: [
+          { name: "Soft drinks", price: "£1.80" },
+          { name: "San Pellegrino", price: "£2.20" },
+          { name: "Nutella pizza ring", desc: "Shared? Allegedly.", price: "£6.50" },
+        ],
+      },
+    ],
   },
 ];
 
 export function getDemo(slug: string) {
   return demos.find((d) => d.slug === slug);
 }
-
-/** The demo's sub-pages, used by the nav and static generation. */
-export const demoPages = [
-  { path: "", label: "Home" },
-  { path: "prices", label: "Prices" },
-  { path: "gallery", label: "Gallery" },
-  { path: "about", label: "About" },
-  { path: "book", label: "Book" },
-] as const;

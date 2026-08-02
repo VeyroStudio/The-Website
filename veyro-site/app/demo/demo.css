@@ -105,3 +105,17 @@
 .demo-row:hover::after {
   transform: scaleX(1);
 }
+
+/* Basket bar slides up when the first item is added. */
+@keyframes demo-basket {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.demo-basket-in {
+  animation: demo-basket 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}

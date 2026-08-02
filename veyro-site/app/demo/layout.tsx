@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Alfa_Slab_One, Archivo_Black, Bebas_Neue, Inter } from "next/font/google";
 import RevealRoot from "@/components/RevealRoot";
 import "./demo.css";
 
@@ -9,12 +9,29 @@ import "./demo.css";
  * to a prospect as a preview of THEIR site, and it has to feel like
  * theirs, not like a page inside ours.
  *
- * Only loaded on /demo routes, so these fonts cost the main site
- * nothing.
+ * Three display fonts, one per trade: Bebas for the barber, Archivo
+ * Black for the garage, Alfa Slab for the pizzeria. Each demo picks
+ * one via `displayFont` in lib/demos.ts — the visible proof that the
+ * demos aren't a single template with the name swapped. Only loaded
+ * on /demo routes, so they cost the main site nothing.
  */
 
-const displayFont = Bebas_Neue({
+const bebas = Bebas_Neue({
   variable: "--font-demo-display",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const archivo = Archivo_Black({
+  variable: "--font-demo-archivo",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const slab = Alfa_Slab_One({
+  variable: "--font-demo-slab",
   weight: "400",
   subsets: ["latin"],
   display: "swap",
@@ -43,7 +60,9 @@ export default function DemoLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <div
+      className={`${bebas.variable} ${archivo.variable} ${slab.variable} ${bodyFont.variable}`}
+    >
       <RevealRoot />
       {children}
     </div>

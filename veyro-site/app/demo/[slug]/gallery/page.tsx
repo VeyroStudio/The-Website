@@ -2,9 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDemo } from "@/lib/demos";
+import { demos, getDemo } from "@/lib/demos";
 
 type Params = { params: Promise<{ slug: string }> };
+
+/* Growth-only page: these params override the layout's, so slugs on
+   other plans 404 instead of getting pages their plan does not include. */
+export function generateStaticParams() {
+  return demos.filter((d) => d.plan === "growth").map((d) => ({ slug: d.slug }));
+}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
@@ -15,11 +21,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function DemoGallery({ params }: Params) {
   const { slug } = await params;
   const demo = getDemo(slug);
-  if (!demo) notFound();
+  if (!demo || demo.plan !== "growth" || !demo.gallery) notFound();
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--font-demo-display)] text-6xl tracking-wide">
+      <h1 className="[font-family:var(--demo-display)] text-6xl tracking-wide">
         THE WORK
       </h1>
       <div className="demo-rule mt-3" aria-hidden="true" />

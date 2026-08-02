@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
 import DemoNav from "@/components/demo/DemoNav";
-import { demos, getDemo } from "@/lib/demos";
+import { ctaFor, demos, getDemo, pagesFor, planMeta } from "@/lib/demos";
 import { site } from "@/lib/site";
 
 /**
  * Shared chrome for one demo site: its nav, floating call button and
- * the VEYRO credit footer. Sub-pages (prices, gallery, about, book)
- * render inside this, so the prospect experiences a real multi-page
- * site — which is precisely what the Growth plan is selling.
+ * the VEYRO credit footer. What the nav contains — and whether there
+ * are sub-pages at all — follows the demo's plan, because each demo
+ * exists to sell exactly one price point.
  *
- * generateStaticParams here covers every nested page; the children
- * do not need their own.
+ * generateStaticParams here covers every nested page; plan-specific
+ * children (prices, menu, …) narrow it with their own.
  */
 
 type Props = {
@@ -28,13 +28,25 @@ export default async function DemoSiteLayout({ children, params }: Props) {
   if (!demo) notFound();
 
   const tel = `tel:${demo.phone.replace(/\s/g, "")}`;
+  const meta = planMeta[demo.plan];
 
   return (
     <div
       className="min-h-dvh bg-[#101114] text-[#F4F1EA] [font-family:var(--font-demo-body)]"
-      style={{ ["--accent" as string]: demo.accent }}
+      style={
+        {
+          "--accent": demo.accent,
+          "--demo-display": demo.displayFont,
+        } as React.CSSProperties
+      }
     >
-      <DemoNav slug={demo.slug} business={demo.business} phone={demo.phone} />
+      <DemoNav
+        slug={demo.slug}
+        business={demo.business}
+        phone={demo.phone}
+        pages={pagesFor(demo)}
+        cta={ctaFor(demo)}
+      />
 
       {children}
 
@@ -52,8 +64,8 @@ export default async function DemoSiteLayout({ children, params }: Props) {
       {/* Demo credit — part of the pitch, keep it */}
       <footer className="border-t border-white/10 py-8 text-center text-sm text-white/40">
         <p>
-          Demo preview — not a live business. A Growth-plan site
-          (£199/month) built by{" "}
+          Demo preview — not a live business. A {meta.label}-plan site
+          ({meta.price}/month) built by{" "}
           <a
             href={site.url}
             className="text-[var(--accent)] underline-offset-4 hover:underline"
