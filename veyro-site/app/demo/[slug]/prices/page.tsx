@@ -24,9 +24,9 @@ export default async function DemoPrices({ params }: Params) {
 
   return (
     <section className="mx-auto max-w-3xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--demo-display)] text-6xl tracking-wide">
-        PRICES
-      </h1>
+      <h1 className="demo-mask [font-family:var(--demo-display)] text-6xl tracking-wide">
+<span>PRICES</span>
+</h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
       <p className="mt-6 text-[var(--demo-faint)]">
         No hidden extras — the price on the list is the price in the chair.
@@ -48,7 +48,7 @@ export default async function DemoPrices({ params }: Params) {
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+        className="demo-sheen demo-press mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

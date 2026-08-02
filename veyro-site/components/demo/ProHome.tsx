@@ -31,6 +31,7 @@ export default function ProHome({ demo }: { demo: Demo }) {
           className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent"
           aria-hidden="true"
         />
+        <div className="demo-ember" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-5xl px-4 pb-16">
           <p
             className="demo-rise text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent)] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]"
@@ -56,7 +57,7 @@ export default function ProHome({ demo }: { demo: Demo }) {
           >
             <Link
               href={`${base}/menu`}
-              className="inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               Order for collection
             </Link>
@@ -86,9 +87,9 @@ export default function ProHome({ demo }: { demo: Demo }) {
 
       {/* Menu teaser — the funnel into the ordering page */}
       <section className="mx-auto max-w-5xl px-4 py-20" data-reveal>
-        <h2 className="[font-family:var(--demo-display)] text-4xl md:text-5xl">
-          {firstSection?.category ?? "Menu"}
-        </h2>
+        <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl md:text-5xl">
+<span>{firstSection?.category ?? "Menu"}</span>
+</h2>
         <div className="demo-rule mt-3" aria-hidden="true" />
         <ul className="stagger mt-8 divide-y divide-[var(--demo-line)] border-y border-[var(--demo-line)]">
           {(firstSection?.items ?? []).slice(0, 4).map((item) => (
@@ -121,7 +122,7 @@ export default function ProHome({ demo }: { demo: Demo }) {
       <section className="mx-auto max-w-5xl px-4 pb-20" data-reveal>
         <div className="stagger grid grid-cols-3 gap-3">
           {["/demo/pizza-1.jpg", "/demo/pizza-2.jpg", "/demo/pizza-3.jpg"].map((src) => (
-            <div key={src} className="overflow-hidden rounded-lg">
+            <div key={src} className="demo-img-reveal overflow-hidden rounded-lg">
               <Image
                 src={src}
                 alt="From the oven"
@@ -137,9 +138,9 @@ export default function ProHome({ demo }: { demo: Demo }) {
       {/* Reviews */}
       <section className="border-y border-[var(--demo-line)] bg-[var(--demo-surface)] py-20" data-reveal>
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="[font-family:var(--demo-display)] text-4xl md:text-5xl">
-            What people say
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl md:text-5xl">
+<span>What people say</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <div className="stagger mt-8 grid gap-4 md:grid-cols-3">
             {demo.reviews.map((r) => (
@@ -162,9 +163,9 @@ export default function ProHome({ demo }: { demo: Demo }) {
       {/* Hours + find us */}
       <section className="mx-auto grid max-w-5xl gap-12 px-4 py-20 md:grid-cols-2" data-reveal>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-4xl md:text-5xl">
-            Hours
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl md:text-5xl">
+<span>Hours</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <ul className="stagger mt-8 space-y-3">
             {demo.hours.map((h) => (
@@ -178,15 +179,15 @@ export default function ProHome({ demo }: { demo: Demo }) {
           </ul>
         </div>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-4xl md:text-5xl">
-            Find us
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl md:text-5xl">
+<span>Find us</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <p className="mt-8 text-lg text-[var(--demo-muted)]">{demo.address}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={`${base}/menu`}
-              className="inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               Order for collection
             </Link>

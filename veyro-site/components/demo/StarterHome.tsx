@@ -54,7 +54,7 @@ export default function StarterHome({ demo }: { demo: Demo }) {
           >
             <a
               href={tel}
-              className="inline-flex min-h-14 items-center rounded-lg bg-[var(--accent)] px-8 text-xl font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-14 items-center rounded-lg bg-[var(--accent)] px-8 text-xl font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               {demo.phone}
             </a>
@@ -86,11 +86,11 @@ export default function StarterHome({ demo }: { demo: Demo }) {
 
       {/* Services & prices */}
       <section className="mx-auto max-w-3xl px-4 py-20" data-reveal>
-        <h2 className="[font-family:var(--demo-display)] text-4xl uppercase">
-          What we do
-        </h2>
+        <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl uppercase">
+<span>What we do</span>
+</h2>
         <div className="demo-rule mt-3" aria-hidden="true" />
-        <ul className="stagger mt-8 divide-y divide-[var(--demo-line)] border-y border-[var(--demo-line)]">
+        <ul className="stagger demo-snap mt-8 divide-y divide-[var(--demo-line)] border-y border-[var(--demo-line)]">
           {(demo.services ?? []).map((s) => (
             <li key={s.name} className="demo-row flex items-baseline justify-between gap-4 py-4">
               <span className="text-lg">{s.name}</span>
@@ -108,9 +108,9 @@ export default function StarterHome({ demo }: { demo: Demo }) {
       {/* Reviews */}
       <section className="border-y border-[var(--demo-line)] bg-[var(--demo-surface)] py-20" data-reveal>
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="[font-family:var(--demo-display)] text-4xl uppercase">
-            What drivers say
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl uppercase">
+<span>What drivers say</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <div className="stagger mt-8 grid gap-4 md:grid-cols-3">
             {demo.reviews.map((r) => (
@@ -133,9 +133,9 @@ export default function StarterHome({ demo }: { demo: Demo }) {
       {/* Hours + find us + one big final call CTA */}
       <section className="mx-auto grid max-w-5xl gap-12 px-4 py-20 md:grid-cols-2" data-reveal>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-4xl uppercase">
-            Hours
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl uppercase">
+<span>Hours</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <ul className="stagger mt-8 space-y-3">
             {demo.hours.map((h) => (
@@ -149,15 +149,15 @@ export default function StarterHome({ demo }: { demo: Demo }) {
           </ul>
         </div>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-4xl uppercase">
-            Find us
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl uppercase">
+<span>Find us</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <p className="mt-8 text-lg text-[var(--demo-muted)]">{demo.address}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
               href={tel}
-              className="inline-flex min-h-12 items-center rounded-lg bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-12 items-center rounded-lg bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               {demo.phone}
             </a>

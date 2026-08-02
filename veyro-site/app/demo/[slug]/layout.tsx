@@ -51,6 +51,7 @@ export default async function DemoSiteLayout({ children, params }: Props) {
           "--demo-line-strong": t.lineStrong,
           "--demo-accent-ink": t.accentInk,
           "--demo-on-accent": t.onAccent,
+          "--demo-rule-bg": t.ruleBg,
         } as React.CSSProperties
       }
     >

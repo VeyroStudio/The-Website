@@ -70,7 +70,7 @@
 .demo-rule {
   height: 3px;
   width: 4.5rem;
-  background: var(--accent);
+  background: var(--demo-rule-bg, var(--accent));
   transform-origin: 0 50%;
   animation: demo-rule 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
@@ -118,4 +118,198 @@
 
 .demo-basket-in {
   animation: demo-basket 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================================
+   Premium motion set. Everything below is transform/opacity
+   only, and the global reduced-motion kill-switch zeroes all of
+   it. The html.js guards mean a browser without JavaScript sees
+   finished states, never hidden content.
+   ============================================================ */
+
+/* Masked heading reveal — the line rises out of its own baseline.
+   The single strongest "expensive" cue a page can have. */
+.demo-mask {
+  overflow: hidden;
+}
+
+.demo-mask > span {
+  display: inline-block;
+}
+
+html.js [data-reveal] .demo-mask > span,
+html.js .demo-mask[data-reveal] > span {
+  transform: translateY(112%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.js .is-in .demo-mask > span,
+html.js .demo-mask.is-in > span {
+  transform: none;
+}
+
+/* Cinematic image unveil: photographs settle from a slow zoom as
+   their section enters. Pairs with .stagger for cascades. */
+html.js [data-reveal] .demo-img-reveal img {
+  opacity: 0;
+  transform: scale(1.14);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.js .is-in .demo-img-reveal img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Keep the hover lift working after the unveil finishes. */
+html.js .is-in .demo-img-reveal img:hover {
+  transform: scale(1.03);
+}
+
+/* Sheen: a light-band sweeps across primary buttons on hover.
+   Sits above the button face but below nothing — pure decoration. */
+.demo-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%) skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 80%
+  );
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.demo-sheen:hover::after {
+  transform: translateX(130%) skewX(-18deg);
+}
+
+/* Tactile press on anything button-shaped. */
+.demo-press {
+  transition-property: transform, opacity, background-color, border-color;
+  transition-duration: 0.2s;
+}
+
+.demo-press:active {
+  transform: scale(0.97);
+}
+
+/* ---------- per-trade signatures ---------- */
+
+/* Barber: the headline's letterspacing settles like a stamp. */
+@keyframes demo-tracking {
+  from {
+    letter-spacing: 0.12em;
+    opacity: 0;
+  }
+  to {
+    letter-spacing: 0.02em;
+    opacity: 1;
+  }
+}
+
+.demo-tracking {
+  animation: demo-tracking 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+/* Pizza: a slow ember-glow breathing over the hero flame. */
+@keyframes demo-ember {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.75;
+  }
+}
+
+.demo-ember {
+  position: absolute;
+  inset: auto -20% -30% -20%;
+  height: 80%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(230, 90, 40, 0.5) 0%,
+    rgba(230, 90, 40, 0.15) 45%,
+    transparent 70%
+  );
+  animation: demo-ember 3.6s ease-in-out infinite alternate;
+}
+
+/* Garage: USP items snap in fast and hard — industrial precision.
+   Overrides the soft default stagger timing inside garage pages via
+   the .demo-snap wrapper. */
+html.js .demo-snap.is-in > *,
+html.js .is-in .demo-snap > * {
+  transition-duration: 0.28s;
+  transition-timing-function: cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+/* Basket count pops on every change (element re-keys per update). */
+@keyframes demo-count {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.demo-count-bump {
+  animation: demo-count 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================================
+   Reduced-motion failsafe for everything above. The global
+   kill-switch zeroes durations, but a transition that never gets
+   to run in a throttled or motion-reduced context can pin an
+   element at its HIDDEN state forever — which is exactly the
+   failure observed in testing. Under reduced motion, every
+   effect resolves to its finished state outright.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] .demo-mask > span,
+  html.js .demo-mask[data-reveal] > span {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html.js [data-reveal] .demo-img-reveal img {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .demo-tracking {
+    animation: none !important;
+    opacity: 1 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .demo-ember,
+  .demo-kenburns,
+  .demo-count-bump {
+    animation: none !important;
+  }
+
+  .demo-sheen::after {
+    display: none;
+  }
+
+  .demo-press:active {
+    transform: none;
+  }
 }

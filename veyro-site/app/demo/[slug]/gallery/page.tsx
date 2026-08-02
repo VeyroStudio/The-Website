@@ -25,9 +25,9 @@ export default async function DemoGallery({ params }: Params) {
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--demo-display)] text-6xl tracking-wide">
-        THE WORK
-      </h1>
+      <h1 className="demo-mask [font-family:var(--demo-display)] text-6xl tracking-wide">
+<span>THE WORK</span>
+</h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
       <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Fades, scissor cuts, beard work. When this site is real, this page
@@ -39,7 +39,7 @@ export default async function DemoGallery({ params }: Params) {
         {demo.gallery.map((g, i) => (
           <div
             key={g.src}
-            className={`overflow-hidden rounded-lg ${i === 0 ? "col-span-2 md:col-span-2 md:row-span-2" : ""}`}
+            className={`demo-img-reveal overflow-hidden rounded-lg ${i === 0 ? "col-span-2 md:col-span-2 md:row-span-2" : ""}`}
           >
             <Image
               src={g.src}
@@ -55,7 +55,7 @@ export default async function DemoGallery({ params }: Params) {
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+        className="demo-sheen demo-press mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

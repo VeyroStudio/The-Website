@@ -24,9 +24,9 @@ export default async function DemoBook({ params }: Params) {
 
   return (
     <section className="mx-auto max-w-3xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--demo-display)] text-6xl tracking-wide">
-        BOOK A CHAIR
-      </h1>
+      <h1 className="demo-mask [font-family:var(--demo-display)] text-6xl tracking-wide">
+<span>BOOK A CHAIR</span>
+</h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
       <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Tell us what you&rsquo;re after and when suits — we&rsquo;ll text

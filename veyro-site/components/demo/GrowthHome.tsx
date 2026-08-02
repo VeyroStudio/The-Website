@@ -39,7 +39,7 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
             {demo.town}
           </p>
           <h1
-            className="demo-rise mt-3 [font-family:var(--demo-display)] text-[clamp(3.5rem,14vw,8rem)] leading-[0.9] tracking-wide"
+            className="demo-tracking mt-3 [font-family:var(--demo-display)] text-[clamp(3.5rem,14vw,8rem)] leading-[0.9]"
             style={{ ["--d" as string]: "220ms" }}
           >
             {demo.business}
@@ -56,7 +56,7 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
           >
             <Link
               href={`${base}/book`}
-              className="inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               Book a chair
             </Link>
@@ -86,9 +86,9 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
 
       {/* Prices teaser */}
       <section className="mx-auto max-w-5xl px-4 py-20" data-reveal>
-        <h2 className="[font-family:var(--demo-display)] text-5xl tracking-wide">
-          PRICES
-        </h2>
+        <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
+<span>PRICES</span>
+</h2>
         <div className="demo-rule mt-3" aria-hidden="true" />
         <ul className="stagger mt-8 divide-y divide-[var(--demo-line)] border-y border-[var(--demo-line)]">
           {(demo.services ?? []).slice(0, 4).map((s) => (
@@ -112,13 +112,13 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
 
       {/* Gallery teaser */}
       <section className="mx-auto max-w-5xl px-4 pb-20" data-reveal>
-        <h2 className="[font-family:var(--demo-display)] text-5xl tracking-wide">
-          THE SHOP
-        </h2>
+        <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
+<span>THE SHOP</span>
+</h2>
         <div className="demo-rule mt-3" aria-hidden="true" />
         <div className="stagger mt-8 grid grid-cols-3 gap-3">
           {(demo.gallery ?? []).slice(0, 3).map((g) => (
-            <div key={g.src} className="overflow-hidden rounded-lg">
+            <div key={g.src} className="demo-img-reveal overflow-hidden rounded-lg">
               <Image
                 src={g.src}
                 alt={g.alt}
@@ -143,9 +143,9 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
       {/* Reviews */}
       <section className="border-y border-[var(--demo-line)] bg-[var(--demo-surface)] py-20" data-reveal>
         <div className="mx-auto max-w-5xl px-4">
-          <h2 className="[font-family:var(--demo-display)] text-5xl tracking-wide">
-            WHAT PEOPLE SAY
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
+<span>WHAT PEOPLE SAY</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <div className="stagger mt-8 grid gap-4 md:grid-cols-3">
             {demo.reviews.map((r) => (
@@ -168,9 +168,9 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
       {/* Hours + find us */}
       <section className="mx-auto grid max-w-5xl gap-12 px-4 py-20 md:grid-cols-2" data-reveal>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-5xl tracking-wide">
-            HOURS
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
+<span>HOURS</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <ul className="stagger mt-8 space-y-3">
             {demo.hours.map((h) => (
@@ -184,15 +184,15 @@ export default function GrowthHome({ demo }: { demo: Demo }) {
           </ul>
         </div>
         <div>
-          <h2 className="[font-family:var(--demo-display)] text-5xl tracking-wide">
-            FIND US
-          </h2>
+          <h2 className="demo-mask [font-family:var(--demo-display)] text-5xl tracking-wide">
+<span>FIND US</span>
+</h2>
           <div className="demo-rule mt-3" aria-hidden="true" />
           <p className="mt-8 text-lg text-[var(--demo-muted)]">{demo.address}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={`${base}/book`}
-              className="inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+              className="demo-sheen demo-press inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
             >
               Book a chair
             </Link>

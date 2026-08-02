@@ -107,7 +107,7 @@ export default function BookForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85 disabled:opacity-60 sm:w-auto"
+        className="demo-sheen demo-press inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85 disabled:opacity-60 sm:w-auto"
         style={{ background: accent }}
       >
         {status === "sending" ? "Sending…" : "Request a slot"}

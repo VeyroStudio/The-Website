@@ -82,7 +82,7 @@ export default function OrderMenu({
                   type="button"
                   onClick={() => add(item.name, item.price)}
                   aria-label={`Add ${item.name} to order`}
-                  className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[var(--demo-line-strong)] text-xl font-bold transition-colors hover:border-[var(--accent)] hover:text-[var(--demo-accent-ink)]"
+                  className="demo-press inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[var(--demo-line-strong)] text-xl font-bold transition-colors hover:border-[var(--accent)] hover:text-[var(--demo-accent-ink)]"
                 >
                   +
                 </button>
@@ -102,7 +102,8 @@ export default function OrderMenu({
               className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-base font-semibold"
             >
               <span
-                className="inline-flex size-7 items-center justify-center rounded-full text-sm font-bold text-[var(--demo-on-accent)]"
+                key={count}
+                className="demo-count-bump inline-flex size-7 items-center justify-center rounded-full text-sm font-bold text-[var(--demo-on-accent)]"
                 style={{ background: accent }}
               >
                 {count}
@@ -162,7 +163,7 @@ export default function OrderMenu({
                   <button
                     type="button"
                     onClick={() => setPlaced(true)}
-                    className="mt-4 inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+                    className="demo-sheen demo-press mt-4 inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
                     style={{ background: accent }}
                   >
                     Checkout — {gbp(total)}

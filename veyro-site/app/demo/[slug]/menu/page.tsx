@@ -29,9 +29,9 @@ export default async function DemoMenu({ params }: Params) {
 
   return (
     <section className="mx-auto max-w-3xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--demo-display)] text-5xl md:text-6xl">
-        Menu
-      </h1>
+      <h1 className="demo-mask [font-family:var(--demo-display)] text-5xl md:text-6xl">
+<span>Menu</span>
+</h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
       <p className="mt-6 max-w-xl text-[var(--demo-faint)]">
         Order for collection — ready in about twenty minutes. Tap + to add,

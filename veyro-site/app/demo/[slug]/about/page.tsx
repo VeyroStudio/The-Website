@@ -26,9 +26,9 @@ export default async function DemoAbout({ params }: Params) {
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-24 pt-28">
-      <h1 className="[font-family:var(--demo-display)] text-6xl tracking-wide">
-        ABOUT US
-      </h1>
+      <h1 className="demo-mask [font-family:var(--demo-display)] text-6xl tracking-wide">
+<span>ABOUT US</span>
+</h1>
       <div className="demo-rule mt-3" aria-hidden="true" />
 
       <div className="mt-10 grid gap-10 md:grid-cols-2" data-reveal>
@@ -43,10 +43,10 @@ export default async function DemoAbout({ params }: Params) {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3 self-start">
-          <div className="overflow-hidden rounded-lg">
+          <div className="demo-img-reveal overflow-hidden rounded-lg">
             <Image src={demo.gallery[0].src} alt={demo.gallery[0].alt} width={900} height={675} className="demo-tile h-full w-full object-cover" />
           </div>
-          <div className="mt-8 overflow-hidden rounded-lg">
+          <div className="demo-img-reveal mt-8 overflow-hidden rounded-lg">
             <Image src={demo.gallery[2].src} alt={demo.gallery[2].alt} width={900} height={675} className="demo-tile h-full w-full object-cover" />
           </div>
         </div>
@@ -55,9 +55,9 @@ export default async function DemoAbout({ params }: Params) {
       {/* Hours repeated here — an about page someone lands on should
           never make them navigate again to learn when to turn up */}
       <div className="mt-16 max-w-md" data-reveal>
-        <h2 className="[font-family:var(--demo-display)] text-4xl tracking-wide">
-          HOURS
-        </h2>
+        <h2 className="demo-mask [font-family:var(--demo-display)] text-4xl tracking-wide">
+<span>HOURS</span>
+</h2>
         <ul className="stagger mt-6 space-y-3">
           {demo.hours.map((h) => (
             <li key={h.days} className="flex justify-between border-b border-[var(--demo-line)] pb-3">
@@ -72,7 +72,7 @@ export default async function DemoAbout({ params }: Params) {
 
       <Link
         href={`/demo/${demo.slug}/book`}
-        className="mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
+        className="demo-sheen demo-press mt-10 inline-flex min-h-12 items-center rounded-full bg-[var(--accent)] px-7 text-base font-bold text-[var(--demo-on-accent)] transition-opacity hover:opacity-85"
       >
         Book a chair
       </Link>

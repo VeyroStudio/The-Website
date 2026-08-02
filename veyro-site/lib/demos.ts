@@ -63,6 +63,9 @@ export type Demo = {
     accent: string;
     accentInk: string;
     onAccent: string;
+    /** Background of the self-drawing rule under headings — the
+     *  per-trade signature: solid gold, hazard stripes, flame gradient. */
+    ruleBg: string;
   };
   hero: string;
   /** starter + growth: flat price list */
@@ -145,6 +148,7 @@ export const demos: Demo[] = [
       accent: "#F97316",
       accentInk: "#C2410C",
       onAccent: "#1A1207",
+      ruleBg: "repeating-linear-gradient(135deg, #F97316 0 10px, #1E293B 10px 20px)",
     },
     hero: "/demo/garage-hero.jpg",
     services: [
@@ -192,6 +196,7 @@ export const demos: Demo[] = [
       accent: "#CA8A04",
       accentInk: "#E0B32B",
       onAccent: "#1C1917",
+      ruleBg: "linear-gradient(90deg, #CA8A04, #E0B32B 60%, #CA8A04)",
     },
     hero: "/demo/hero.jpg",
     services: [
@@ -256,6 +261,7 @@ export const demos: Demo[] = [
       accent: "#DC2626",
       accentInk: "#B91C1C",
       onAccent: "#FFFFFF",
+      ruleBg: "linear-gradient(90deg, #DC2626, #CA8A04)",
     },
     hero: "/demo/pizza-hero.jpg",
     menu: [
