@@ -143,7 +143,7 @@ export default function WhatYouGetPage() {
                 style={delay(i * 80)}
               >
                 <div className="flex items-center gap-4 md:col-span-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-amber text-sm font-bold text-navy">
+                  <span className="pop grid size-11 shrink-0 place-items-center rounded-full bg-amber text-sm font-bold text-navy">
                     {s.step}
                   </span>
                   <h3 className="display text-xl text-navy md:text-2xl">

@@ -217,6 +217,33 @@ body {
     color-mix(in oklab, var(--color-amber) 30%, transparent) 0%,
     transparent 70%
   );
+  animation: veyro-bloom-drift 16s ease-in-out infinite alternate;
+}
+
+/* Slow ambient wander so the glow reads as light, not a sticker.
+   Small distances and a long period — felt rather than noticed. */
+@keyframes veyro-bloom-drift {
+  from {
+    transform: translate3d(-3%, 2%, 0) scale(0.96);
+  }
+  to {
+    transform: translate3d(3%, -2%, 0) scale(1.06);
+  }
+}
+
+/* Gentle idle bob for a hero object that should feel alive while the
+   page sits still. Amplitude is a few pixels on purpose. */
+@keyframes veyro-float {
+  from {
+    transform: translate3d(0, -5px, 0);
+  }
+  to {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+.float-slow {
+  animation: veyro-float 5.5s ease-in-out infinite alternate;
 }
 
 /* ============================================================
@@ -302,6 +329,39 @@ html.js .stagger.is-in > * {
   transform: none;
 }
 
+/* Spring scale-in for small emphatic objects — step numbers, stat
+   figures, badges. Rides the same reveal system: it plays when its
+   `data-reveal` ancestor gains `.is-in`, offset slightly behind the
+   parent so the pop lands on an already-visible surface. */
+html.js .pop {
+  transform: scale(0.4);
+  opacity: 0;
+  transition:
+    transform 0.65s var(--ease-spring),
+    opacity 0.35s var(--ease-out-quart);
+  transition-delay: calc(var(--d, 0ms) + 180ms);
+}
+
+html.js .is-in .pop,
+html.js .pop.is-in {
+  transform: none;
+  opacity: 1;
+}
+
+/* Tick marks draw themselves as their stagger row arrives. The path
+   carries pathLength="1" so the dash maths is unit-length everywhere.
+   Without JS the rule never applies and ticks render finished. */
+html.js .stagger .check-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.55s var(--ease-out-quart);
+}
+
+html.js .is-in .stagger .check-draw path,
+html.js .stagger.is-in .check-draw path {
+  stroke-dashoffset: 0;
+}
+
 html.js .stagger > *:nth-child(1) { transition-delay: 60ms }
 html.js .stagger > *:nth-child(2) { transition-delay: 130ms }
 html.js .stagger > *:nth-child(3) { transition-delay: 200ms }
@@ -310,6 +370,17 @@ html.js .stagger > *:nth-child(5) { transition-delay: 340ms }
 html.js .stagger > *:nth-child(6) { transition-delay: 410ms }
 html.js .stagger > *:nth-child(7) { transition-delay: 480ms }
 html.js .stagger > *:nth-child(8) { transition-delay: 550ms }
+
+/* Each tick starts a beat after its own row, so the draw is always
+   seen on a visible row rather than finishing in the dark. */
+html.js .stagger > *:nth-child(1) .check-draw path { transition-delay: 210ms }
+html.js .stagger > *:nth-child(2) .check-draw path { transition-delay: 280ms }
+html.js .stagger > *:nth-child(3) .check-draw path { transition-delay: 350ms }
+html.js .stagger > *:nth-child(4) .check-draw path { transition-delay: 420ms }
+html.js .stagger > *:nth-child(5) .check-draw path { transition-delay: 490ms }
+html.js .stagger > *:nth-child(6) .check-draw path { transition-delay: 560ms }
+html.js .stagger > *:nth-child(7) .check-draw path { transition-delay: 630ms }
+html.js .stagger > *:nth-child(8) .check-draw path { transition-delay: 700ms }
 
 /* ============================================================
    Marquee
@@ -462,6 +533,33 @@ html.js .stagger > *:nth-child(8) { transition-delay: 550ms }
   transform-origin: 0 50%;
 }
 
+/* Soft highlight that sweeps across a solid button on hover. Parked
+   off-canvas either side so it plays once per entry, never loops. */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 65%
+  );
+  transform: translate3d(-105%, 0, 0);
+}
+
+.btn-sheen:hover::before,
+.btn-sheen:focus-visible::before {
+  transform: translate3d(105%, 0, 0);
+  transition: transform 0.8s var(--ease-out-quart);
+}
+
 .nudge svg {
   transition: transform 0.4s var(--ease-out-expo);
 }
@@ -594,6 +692,24 @@ html.js .stagger > *:nth-child(8) { transition-delay: 550ms }
 
   html.js .rule-draw {
     transform: scaleX(1) !important;
+  }
+
+  html.js .pop {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  html.js .stagger .check-draw path {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .bloom,
+  .float-slow {
+    animation: none !important;
+  }
+
+  .btn-sheen::before {
+    display: none;
   }
 
   .mark-sweep {

@@ -30,7 +30,7 @@ export default function PlanCards({ compact = false }: { compact?: boolean }) {
               }`}
             >
               {featured && (
-                <span className="absolute -top-3.5 left-7 rounded-full bg-amber px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-navy">
+                <span className="pop absolute -top-3.5 left-7 rounded-full bg-amber px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-navy">
                   Most popular
                 </span>
               )}

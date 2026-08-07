@@ -45,7 +45,7 @@ export function Check({ className = "size-4" }: IconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
-      className={className}
+      className={`check-draw ${className}`}
       fill="none"
       stroke="currentColor"
       strokeWidth="2.5"
@@ -53,7 +53,8 @@ export function Check({ className = "size-4" }: IconProps) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="m4 12.5 5 5L20 6.5" />
+      {/* pathLength normalises the dash maths to 1 for the draw-in */}
+      <path d="m4 12.5 5 5L20 6.5" pathLength={1} />
     </svg>
   );
 }
@@ -123,9 +124,9 @@ export function Star({ className = "size-4" }: IconProps) {
 /* ------------------------------------------------------------------ */
 
 const base =
-  "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full " +
+  "group btn-sheen inline-flex cursor-pointer items-center justify-center gap-2 rounded-full " +
   "font-semibold tracking-tight transition-[background-color,border-color,color,transform] " +
-  "duration-300 active:translate-y-px min-h-12 px-6 text-[0.9375rem] " +
+  "duration-300 active:translate-y-px active:scale-[0.98] min-h-12 px-6 text-[0.9375rem] " +
   "disabled:cursor-not-allowed disabled:opacity-60";
 
 const variants = {

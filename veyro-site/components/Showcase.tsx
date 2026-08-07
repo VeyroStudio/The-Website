@@ -39,7 +39,7 @@ export default function Showcase() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-navy/92 via-navy/45 to-transparent"
             aria-hidden="true"
           />
-          <span className="pointer-events-none absolute bottom-3 left-3 right-3 text-sm font-semibold text-cream md:bottom-4 md:left-4 md:text-base">
+          <span className="pointer-events-none absolute bottom-3 left-3 right-3 text-sm font-semibold text-cream transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-1 md:bottom-4 md:left-4 md:text-base">
             {item.label}
           </span>
         </li>

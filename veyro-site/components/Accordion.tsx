@@ -86,7 +86,11 @@ export default function Accordion({
                   role="region"
                   aria-labelledby={btnId}
                   inert={!isOpen}
-                  className="pb-6"
+                  className={`pb-6 transition-[opacity,transform] duration-400 ease-[cubic-bezier(.25,1,.5,1)] ${
+                    isOpen
+                      ? "translate-y-0 opacity-100 [transition-delay:90ms]"
+                      : "translate-y-1.5 opacity-0"
+                  }`}
                 >
                   {item.body}
                 </div>

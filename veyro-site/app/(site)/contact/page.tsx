@@ -111,7 +111,7 @@ export default function ContactPage() {
               <ol className="stagger mt-4 space-y-3.5">
                 {steps.slice(0, 3).map((s) => (
                   <li key={s.step} className="flex gap-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-amber text-[0.6875rem] font-bold text-navy">
+                    <span className="pop grid size-6 shrink-0 place-items-center rounded-full bg-amber text-[0.6875rem] font-bold text-navy">
                       {s.step}
                     </span>
                     <span className="text-sm leading-relaxed text-muted">

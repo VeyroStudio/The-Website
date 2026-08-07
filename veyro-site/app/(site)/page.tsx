@@ -108,7 +108,9 @@ export default function Home() {
           </div>
 
           <div className="lg:col-span-5" data-reveal="right" style={delay(300)}>
-            <SearchGap />
+            <div className="float-slow">
+              <SearchGap />
+            </div>
           </div>
         </div>
       </section>
@@ -200,7 +202,7 @@ export default function Home() {
               <div key={p.label} data-reveal style={delay(i * 90)}>
                 <dt className="sr-only">{p.label}</dt>
                 <dd>
-                  <span className="display block text-[clamp(2.25rem,4.5vw,3.5rem)] leading-none text-amber-ink">
+                  <span className="pop display block origin-left text-[clamp(2.25rem,4.5vw,3.5rem)] leading-none text-amber-ink">
                     {p.value}
                   </span>
                   <span className="mt-3 block text-sm font-semibold text-navy">
@@ -320,7 +322,7 @@ export default function Home() {
                 style={delay(i * 80)}
               >
                 <div className="flex items-center gap-4 md:col-span-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-amber text-sm font-bold text-navy">
+                  <span className="pop grid size-11 shrink-0 place-items-center rounded-full bg-amber text-sm font-bold text-navy">
                     {s.step}
                   </span>
                   <h3 className="display text-xl text-navy md:text-2xl">

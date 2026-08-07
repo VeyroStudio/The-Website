@@ -122,7 +122,7 @@ export default function Nav() {
             </a>
             <Link
               href="/contact"
-              className="group inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full bg-amber px-5 text-[0.9375rem] font-semibold tracking-tight text-navy transition-colors duration-300 hover:bg-amber-hi"
+              className="group btn-sheen inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full bg-amber px-5 text-[0.9375rem] font-semibold tracking-tight text-navy transition-[background-color,transform] duration-300 hover:bg-amber-hi active:scale-[0.98]"
             >
               Get a free quote
               <span className="nudge inline-flex">
